@@ -1,0 +1,13 @@
+{
+    "transactionSuccess": true,
+    "errorOccurred": false,
+    "siteName": "localhost",
+    "applicationName": "Philip K. Dicktionary",
+    "applicationAllowUserInteractions": true,
+    "requireUserLogin": true,
+    "menuSettings": {
+        "showAllMenuItems": false,
+        "showTerms": true,
+        "showAbout": true
+    }
+}

@@ -9,6 +9,7 @@ import { isEmpty, getDateTime, isNonEmptyArray, hasNonEmptyProperty } from "shar
 import { setApplicationVersion, setCopyrightYear, setLocationLogged, addComputerLog, /* setApplicationOffline, */ setUserElectronicOnly, setUserPhysicalOnly } from "./app/applicationSettingsSlice";
 import { setPageURL, setLinkItem } from "./app/urlsSlice";
 import LoadApplicationSettings from "./components/loadData/LoadApplicationSettings";
+import LoadBibliographyData from "./components/loadData/LoadBibliographyData";
 import Home from "./content/Home";
 import About from "./content/About";
 // import TermSuggestions from "./components/termSuggestion/TermSuggestions";
@@ -48,7 +49,14 @@ const App = (props) => {
 
   };
 
-  // let showTerms = useSelector(state => state.applicationSettings.menuSettings.showTerms);
+  let showTerms = useSelector(state => state.applicationSettings.menuSettings.showTerms);
+
+  // * show Terms page unless set specifically to false. -- 03/06/2021 MF
+  if (showTerms !== false) {
+
+    showTerms = true;
+
+  };
 
   // const arrayURLs = useSelector(state => state.urls.arrayURLs);
   // const pageURL = useSelector(state => state.urls.pageURL);
@@ -341,13 +349,13 @@ const App = (props) => {
             <NavLink tag={Link} to="/"><NavbarText>Home</NavbarText></NavLink>
           </NavItem>
 
-          {/* { showTerms === true || showAllMenuItems === true ? */}
+          {showTerms === true || showAllMenuItems === true ?
 
-          <NavItem>
-            <NavLink tag={Link} to="/terms"><NavbarText>Terms</NavbarText></NavLink>
-          </NavItem>
+            <NavItem>
+              <NavLink tag={Link} to="/terms"><NavbarText>Terms</NavbarText></NavLink>
+            </NavItem>
 
-          {/* : null} */}
+            : null}
 
           {showAbout === true || showAllMenuItems === true ?
 
@@ -389,6 +397,7 @@ const App = (props) => {
               <Alert color="danger" isOpen={errorMessageVisible} toggle={onDismissErrorMessage}>{errorMessage}</Alert>
 
               <LoadApplicationSettings />
+              <LoadBibliographyData />
 
             </Row>
 
