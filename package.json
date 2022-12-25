@@ -1,0 +1,63 @@
+{
+  "name": "pkdicktionary",
+  "version": "1.0.0",
+  "description": "Project using React and Redux to allow users to find terms created by or specific to Philip K. Dick. Data for the application is stored in Redux. Used Bootstrap to make the application more visually appealing.",
+  "author": "Michael Fisher",
+  "copyrightYear": "2023",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mirfishe/PKDicktionary"
+  },
+  "private": true,
+  "homepage": ".",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
+    "buildmac": "GENERATE_SOURCEMAP=false react-scripts build",
+    "continuousintegrationbuild": "CI=false && npm run buildmac",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.2.1",
+    "@reduxjs/toolkit": "^1.9.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
+    "bootstrap": "^5.2.2",
+    "html-react-parser": "^3.0.4",
+    "react": "^18.2.0",
+    "react-bootstrap-icons": "^1.9.1",
+    "react-dom": "^18.2.0",
+    "react-gtm-module": "^2.0.11",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.4.3",
+    "reactstrap": "^9.1.5",
+    "rss-parser": "^3.12.0",
+    "shared-functions": "github:mirfishe/shared-functions",
+    "web-vitals": "^3.1.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3",
+    "react-scripts": "^5.0.1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
