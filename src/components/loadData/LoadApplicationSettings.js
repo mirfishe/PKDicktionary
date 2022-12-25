@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import applicationSettings from "../../app/environment";
 import { isEmpty, getDateTime, displayValue } from "shared-functions";
-import { addErrorLog } from "../../utilities/ApplicationFunctions";
-import { setHostname, setProfileType, setTagManagerArgsgtmId, setSiteName, setApplicationName, setMetaDescription, setDefaultPageComponent, setRouterBaseName, /* setApplicationOffline, */ setElectronicOnly, setElectronicOnlyMessage, setPhysicalOnly, setPhysicalOnlyMessage, setApplicationAllowUserInteractions, setRequireUserLogin, setApplicationSettingsLoaded, setApplicationSettingsJsonLoaded, setMenuSettings } from "../../app/applicationSettingsSlice";
+// import { addErrorLog } from "../../utilities/ApplicationFunctions";
+import { setHostname, setProfileType, setTagManagerArgsgtmId, setSiteName, setApplicationName, setMetaDescription, setDefaultPageComponent, setRouterBaseName, setApplicationAllowUserInteractions, setRequireUserLogin, setApplicationSettingsLoaded, setApplicationSettingsJsonLoaded, setMenuSettings } from "../../app/applicationSettingsSlice";
 
 function LoadApplicationSettings() {
 
@@ -74,21 +74,6 @@ function LoadApplicationSettings() {
     // ! Always pulling it from environment.js. -- 03/06/2021 MF
     // let routerBaseName = applicationSettings.routerBaseName;
     dispatch(setRouterBaseName(applicationSettings.routerBaseName));
-
-    // let applicationOffline = applicationSettings.applicationOffline;
-    // dispatch(setApplicationOffline(applicationSettings.applicationOffline));
-
-    // let electronicOnly = applicationSettings.electronicOnly;
-    dispatch(setElectronicOnly(applicationSettings.electronicOnly));
-
-    // let electronicOnlyMessage = applicationSettings.electronicOnlyMessage;
-    dispatch(setElectronicOnlyMessage(applicationSettings.electronicOnlyMessage));
-
-    // let physicalOnly = applicationSettings.physicalOnly;
-    dispatch(setPhysicalOnly(applicationSettings.physicalOnly));
-
-    // let physicalOnlyMessage = applicationSettings.physicalOnlyMessage;
-    dispatch(setPhysicalOnlyMessage(applicationSettings.physicalOnlyMessage));
 
     // let applicationAllowUserInteractions = applicationSettings.applicationAllowUserInteractions;
     dispatch(setApplicationAllowUserInteractions(applicationSettings.applicationAllowUserInteractions));
@@ -207,41 +192,6 @@ function LoadApplicationSettings() {
 
           // };
 
-          // if (isEmpty(results.applicationOffline) === false) {
-
-          //   // applicationOffline = results.applicationOffline;
-          //   dispatch(setApplicationOffline(results.applicationOffline));
-
-          // };
-
-          if (isEmpty(results.electronicOnly) === false) {
-
-            // electronicOnly = results.electronicOnly;
-            dispatch(setElectronicOnly(results.electronicOnly));
-
-          };
-
-          if (isEmpty(results.electronicOnlyMessage) === false) {
-
-            // electronicOnlyMessage = results.electronicOnlyMessage;
-            dispatch(setElectronicOnlyMessage(results.electronicOnlyMessage));
-
-          };
-
-          if (isEmpty(results.physicalOnly) === false) {
-
-            // physicalOnly = results.physicalOnly;
-            dispatch(setPhysicalOnly(results.physicalOnly));
-
-          };
-
-          if (isEmpty(results.physicalOnlyMessage) === false) {
-
-            // physicalOnlyMessage = results.physicalOnlyMessage;
-            dispatch(setPhysicalOnlyMessage(results.physicalOnlyMessage));
-
-          };
-
           if (isEmpty(results.applicationAllowUserInteractions) === false) {
 
             // applicationAllowUserInteractions = results.applicationAllowUserInteractions;
@@ -253,14 +203,6 @@ function LoadApplicationSettings() {
 
             // requireUserLogin = results.requireUserLogin;
             dispatch(setRequireUserLogin(results.requireUserLogin));
-
-          };
-
-          // * In case accidentally set both to true, then electronicOnly overides.
-          if (results.physicalOnly && results.electronicOnly) {
-
-            dispatch(setElectronicOnly(true));
-            dispatch(setPhysicalOnly(false));
 
           };
 

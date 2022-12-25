@@ -6,7 +6,7 @@ import { Container, Col, Row, Alert } from "reactstrap";
 import applicationSettings from "../../app/environment";
 import { isEmpty, getDateTime, isNonEmptyArray } from "shared-functions";
 // import { encodeURL, decodeURL, setLocalPath, setLocalImagePath, addErrorLog } from "../../utilities/ApplicationFunctions";
-// import TitleCard from "../titles/TitleCard";
+import TitleCard from "../titles/TitleCard";
 
 const Terms = (props) => {
 
@@ -337,9 +337,9 @@ const Terms = (props) => {
               {termTitles.map((termTitle, index) => {
 
                 return (
-                  <React.Fragment>
+                  <React.Fragment key={index}>
 
-                    {/* <TitleCard linkName={termTitle.titleURL} imageSide="right" /> */}
+                    <TitleCard linkName={termTitle.titleURL} imageSide="right" />
 
                     {/* <Col key={termTitle.titleID} xs="6" className="mb-4">
 

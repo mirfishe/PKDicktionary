@@ -1,0 +1,29 @@
+{
+    "transactionSuccess": true,
+    "errorOccurred": false,
+    "siteName": "Philip K. Dick",
+    "applicationName": "PKD and Me",
+    "electronicOnly": false,
+    "electronicOnlyMessage": "You are viewing only electronic editions.",
+    "physicalOnly": false,
+    "physicalOnlyMessage": "You are viewing only physical editions.",
+    "applicationAllowUserInteractions": true,
+    "requireUserLogin": true,
+    "menuSettings": {
+        "showAllMenuItems": false,
+        "showNew": true,
+        "showAbout": true,
+        "showHomeopape": false,
+        "showDickian": false,
+        "showEditCategory": false,
+        "showEditMedia": false,
+        "showEditTitle": false,
+        "showEditEdition": false,
+        "showAllCategories": false,
+        "showAllMedia": false,
+        "showAllTitles": false,
+        "showAllEditions": false,
+        "showUserPhysicalOnly": false,
+        "showUserElectronicOnly": false
+    }
+}

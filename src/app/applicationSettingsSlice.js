@@ -18,13 +18,6 @@ const initialState = {
   metaDescription: "",
   defaultPageComponent: "",
   routerBaseName: "",
-  // applicationOffline: false,
-  electronicOnly: false,
-  userElectronicOnly: false,
-  electronicOnlyMessage: "",
-  physicalOnly: false,
-  userPhysicalOnly: false,
-  physicalOnlyMessage: "",
   applicationAllowUserInteractions: true,
   requireUserLogin: true,
   applicationSettingsLoaded: false,
@@ -217,41 +210,6 @@ const applicationSettingsSlice = createSlice({
     setRouterBaseName(state, action) {
 
       state.routerBaseName = action.payload;
-
-    },
-    // setApplicationOffline(state, action) {
-
-    //   state.applicationOffline = action.payload;
-
-    // },
-    setElectronicOnly(state, action) {
-
-      state.electronicOnly = action.payload;
-
-    },
-    setUserElectronicOnly(state, action) {
-
-      state.userElectronicOnly = action.payload;
-
-    },
-    setElectronicOnlyMessage(state, action) {
-
-      state.electronicOnlyMessage = action.payload;
-
-    },
-    setPhysicalOnly(state, action) {
-
-      state.physicalOnly = action.payload;
-
-    },
-    setUserPhysicalOnly(state, action) {
-
-      state.userPhysicalOnly = action.payload;
-
-    },
-    setPhysicalOnlyMessage(state, action) {
-
-      state.physicalOnlyMessage = action.payload;
 
     },
     setApplicationAllowUserInteractions(state, action) {
@@ -452,6 +410,6 @@ const applicationSettingsSlice = createSlice({
   }
 });
 
-export const { setApplicationVersion, setCopyrightYear, setLocationLogged, addComputerLog, setHostname, setProfileType, /*setAPI_URL, setBaseURL,*/ setTagManagerArgsgtmId, setSiteName, setApplicationName, setMetaDescription, setDefaultPageComponent, setRouterBaseName, /* setApplicationOffline, */ setElectronicOnly, setUserElectronicOnly, setElectronicOnlyMessage, setPhysicalOnly, setUserPhysicalOnly, setPhysicalOnlyMessage, setApplicationAllowUserInteractions, setRequireUserLogin, setApplicationSettingsLoaded, setApplicationSettingsJsonLoaded, setMenuSettings, addInformationMessage, addSuccessMessage, addWarningMessage, addErrorMessage, clearMessages, setShowMessages } = applicationSettingsSlice.actions;
+export const { setApplicationVersion, setCopyrightYear, setLocationLogged, addComputerLog, setHostname, setProfileType, /*setAPI_URL, setBaseURL,*/ setTagManagerArgsgtmId, setSiteName, setApplicationName, setMetaDescription, setDefaultPageComponent, setRouterBaseName, setApplicationAllowUserInteractions, setRequireUserLogin, setApplicationSettingsLoaded, setApplicationSettingsJsonLoaded, setMenuSettings, addInformationMessage, addSuccessMessage, addWarningMessage, addErrorMessage, clearMessages, setShowMessages } = applicationSettingsSlice.actions;
 
 export default applicationSettingsSlice.reducer;
