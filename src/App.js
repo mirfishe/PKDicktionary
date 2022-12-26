@@ -9,6 +9,7 @@ import { isEmpty, getDateTime, isNonEmptyArray, hasNonEmptyProperty } from "shar
 import { setApplicationVersion, setCopyrightYear, setLocationLogged, addComputerLog, /* setApplicationOffline, */ setUserElectronicOnly, setUserPhysicalOnly } from "./app/applicationSettingsSlice";
 import { setPageURL, setLinkItem } from "./app/urlsSlice";
 import LoadApplicationSettings from "./components/loadData/LoadApplicationSettings";
+import LoadTermData from "./components/loadData/LoadTermData";
 import LoadBibliographyData from "./components/loadData/LoadBibliographyData";
 import Home from "./content/Home";
 import About from "./content/About";
@@ -139,6 +140,7 @@ const App = (props) => {
           return response.json();
 
         }).then((results) => {
+
           // console.log(componentName, getDateTime(), operationValue1, "results", results);
 
           data = results;
@@ -151,6 +153,7 @@ const App = (props) => {
 
         })
         .catch((error) => {
+
           // console.error(componentName, getDateTime(), operationValue1, "error", error);
 
           setURL1Loaded(true);
@@ -187,6 +190,7 @@ const App = (props) => {
             dispatch(addComputerLog(results));
 
           } else {
+
             // console.error(componentName, getDateTime(), operationValue2, "data.error", data.error);
             // console.error(componentName, getDateTime(), operationValue2, "data.errorCode", data.errorCode);
 
@@ -196,6 +200,7 @@ const App = (props) => {
 
         })
         .catch((error) => {
+
           // console.error(componentName, getDateTime(), operationValue2, "error", error);
 
           setURL2Loaded(true);
@@ -295,6 +300,7 @@ const App = (props) => {
 
       })
       .catch((error) => {
+
         console.error(componentName, getDateTime(), operationValue, "saveRecord error", error);
 
         // addErrorMessage(`${operationValue}: ${error.name}: ${error.message}`);
@@ -397,6 +403,7 @@ const App = (props) => {
               <Alert color="danger" isOpen={errorMessageVisible} toggle={onDismissErrorMessage}>{errorMessage}</Alert>
 
               <LoadApplicationSettings />
+              <LoadTermData />
               <LoadBibliographyData />
 
             </Row>

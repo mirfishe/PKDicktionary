@@ -32,7 +32,7 @@ const TermSuggestions = () => {
   const onDismissMessage = () => setMessageVisible(false);
   const onDismissErrorMessage = () => setErrorMessageVisible(false);
 
-  const [titleSuggestions, setTermSuggestions] = useState([]);
+  const [termSuggestions, setTermSuggestions] = useState([]);
 
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const TermSuggestions = () => {
 
     clearMessages();
 
-    let url = baseURL + "titleSuggestions/";
+    let url = baseURL + "termSuggestions/";
 
     fetch(url, {
       method: "GET",
@@ -89,6 +89,7 @@ const TermSuggestions = () => {
 
       })
       .catch((error) => {
+
         // console.error(componentName, getDateTime(), "getNews error", error);
 
         addErrorMessage(error.name + ": " + error.message);
@@ -109,25 +110,25 @@ const TermSuggestions = () => {
       <Row>
         <Col xs="12">
 
-          <h5 className="text-center">Title Suggestions</h5>
+          <h5 className="text-center">Term Suggestions</h5>
 
         </Col>
       </Row>
 
-      {isNonEmptyArray(titleSuggestions) === true ?
+      {isNonEmptyArray(termSuggestions) === true ?
 
         <Row>
 
-          {titleSuggestions.map((titleSuggestion) => {
+          {termSuggestions.map((termSuggestion) => {
 
             return (
-              <Col key={titleSuggestion.titleSuggestionID} className="my-4" xs="12">
+              <Col key={termSuggestion.termSuggestionID} className="my-4" xs="12">
 
                 <Row>
                   <Col xs="12">
 
-                    <h6>{titleSuggestion.titleName}
-                      {isEmpty(titleSuggestion.publicationDate) === false ? <span className="ms-2 smaller-text"> ({displayDate(titleSuggestion.publicationDate)})</span> : null}
+                    <h6>{termSuggestion.termName}
+                      {isEmpty(termSuggestion.publicationDate) === false ? <span className="ms-2 smaller-text"> ({displayDate(termSuggestion.publicationDate)})</span> : null}
                     </h6>
 
                   </Col>
@@ -136,7 +137,7 @@ const TermSuggestions = () => {
                 <Row className="mb-2">
                   <Col xs="12">
 
-                    <p>{titleSuggestion.authorFirstName} {titleSuggestion.authorLastName}</p>
+                    <p>{termSuggestion.authorFirstName} {termSuggestion.authorLastName}</p>
 
                   </Col>
                 </Row>
@@ -144,7 +145,7 @@ const TermSuggestions = () => {
                 <Row>
                   <Col xs="12">
 
-                    {isEmpty(titleSuggestion.shortDescription) === false ? <p className="display-paragraphs">{titleSuggestion.shortDescription}</p> : null}
+                    {isEmpty(termSuggestion.shortDescription) === false ? <p className="display-paragraphs">{termSuggestion.shortDescription}</p> : null}
 
                   </Col>
                 </Row>
@@ -152,7 +153,7 @@ const TermSuggestions = () => {
                 <Row>
                   <Col xs="12">
 
-                    {isEmpty(titleSuggestion.titleURL) === false ? <p>{titleSuggestion.titleURL}</p> : null}
+                    {isEmpty(termSuggestion.termURL) === false ? <p>{termSuggestion.termURL}</p> : null}
 
                   </Col>
                 </Row>
@@ -160,7 +161,7 @@ const TermSuggestions = () => {
                 <Row>
                   <Col xs="12">
 
-                    <p>Suggested by {isEmpty(titleSuggestion.firstName) === false ? titleSuggestion.firstName : null} {isEmpty(titleSuggestion.lastName) === false ? titleSuggestion.lastName : null} {isEmpty(titleSuggestion.emailAddress) === false ? titleSuggestion.emailAddress : null} {isEmpty(titleSuggestion.updateDate) === false ? <small>on {displayDate(titleSuggestion.updateDate)}</small> : null}</p>
+                    <p>Suggested by {isEmpty(termSuggestion.firstName) === false ? termSuggestion.firstName : null} {isEmpty(termSuggestion.lastName) === false ? termSuggestion.lastName : null} {isEmpty(termSuggestion.emailAddress) === false ? termSuggestion.emailAddress : null} {isEmpty(termSuggestion.updateDate) === false ? <small>on {displayDate(termSuggestion.updateDate)}</small> : null}</p>
 
                   </Col>
                 </Row>

@@ -6,7 +6,7 @@ import { Container, Col, Row, Alert } from "reactstrap";
 import applicationSettings from "../../app/environment";
 import { isEmpty, getDateTime, isNonEmptyArray } from "shared-functions";
 // import { encodeURL, decodeURL, setLocalPath, setLocalImagePath, addErrorLog } from "../../utilities/ApplicationFunctions";
-import TitleCard from "../titles/TitleCard";
+import TitleTerm from "../titles/TitleTerm";
 
 const Terms = (props) => {
 
@@ -37,6 +37,7 @@ const Terms = (props) => {
   const [termAlternateForms, setTermAlternateForms] = useState([]);
   const [termTitles, setTermTitles] = useState([]);
 
+  let previousQuotation = "";
   let previousCategoryID = 0;
   let previousSynonymID = 0;
   let previousAlternateFormID = 0;
@@ -95,6 +96,7 @@ const Terms = (props) => {
 
       })
       .catch((error) => {
+
         // console.error(componentName, getDateTime(), "getTerms error", error);
 
         addErrorMessage(error.name + ": " + error.message);
@@ -143,11 +145,11 @@ const Terms = (props) => {
 
           setTermTitles(results.records);
 
-
         };
 
       })
       .catch((error) => {
+
         // console.error(componentName, getDateTime(), "getTerm error", error);
 
         addErrorMessage(error.name + ": " + error.message);
@@ -202,7 +204,8 @@ const Terms = (props) => {
             <Col xs="12">
 
               <h4>{term.term}</h4>
-              <p>({term.partOfSpeech}) {term.definition}</p>
+
+              <p>{isEmpty(term.partOfSpeech) === false ? <React.Fragment>({term.partOfSpeech})</React.Fragment> : null} {term.definition}</p>
 
               {isEmpty(term.parentTermID) === false ?
 
@@ -210,120 +213,132 @@ const Terms = (props) => {
 
                 : null}
 
-              <h5>Categories:</h5>
-
               {isNonEmptyArray(termCategories) === true ?
 
-                <p>
+                <React.Fragment>
 
-                  {termCategories.map((termCategory, index) => {
+                  <h5>Categories:</h5>
 
-                    let newCategory = previousCategoryID !== termCategory.termCategoryID ? true : false;
+                  <p>
 
-                    previousCategoryID = termCategory.termCategoryID;
+                    {termCategories.map((termCategory, index) => {
 
-                    return (
-                      <React.Fragment key={index}>
+                      let newCategory = previousCategoryID !== termCategory.termCategoryID ? true : false;
 
-                        {isEmpty(termCategory.termCategory) === false && newCategory === true ?
+                      previousCategoryID = termCategory.termCategoryID;
 
-                          <React.Fragment>
+                      return (
+                        <React.Fragment key={index}>
 
-                            {index !== 0 ?
+                          {isEmpty(termCategory.termCategory) === false && newCategory === true ?
 
-                              <React.Fragment>,&nbsp;</React.Fragment>
+                            <React.Fragment>
 
-                              : null}
+                              {index !== 0 ?
 
-                            {termCategory.termCategory}
+                                <React.Fragment>,&nbsp;</React.Fragment>
 
-                          </React.Fragment>
+                                : null}
 
-                          : null}
+                              {termCategory.termCategory}
 
-                      </React.Fragment>
-                    );
-                  })}
+                            </React.Fragment>
 
-                </p>
+                            : null}
+
+                        </React.Fragment>
+                      );
+                    })}
+
+                  </p>
+
+                </React.Fragment>
 
                 : null}
-
-              <h5>Alternate Forms:</h5>
 
               {isNonEmptyArray(termAlternateForms) === true ?
 
-                <p>
+                <React.Fragment>
 
-                  {termAlternateForms.map((alternateForm, index) => {
+                  <h5>Alternate Forms:</h5>
 
-                    let newAlternateForm = previousAlternateFormID !== alternateForm.alternateFormID ? true : false;
+                  <p>
 
-                    previousAlternateFormID = alternateForm.alternateFormID;
+                    {termAlternateForms.map((alternateForm, index) => {
 
-                    return (
-                      <React.Fragment key={index}>
+                      let newAlternateForm = previousAlternateFormID !== alternateForm.alternateFormID ? true : false;
 
-                        {isEmpty(alternateForm.alternateFormID) === false && newAlternateForm === true ?
+                      previousAlternateFormID = alternateForm.alternateFormID;
 
-                          <React.Fragment>
+                      return (
+                        <React.Fragment key={index}>
 
-                            {index !== 0 ?
+                          {isEmpty(alternateForm.alternateFormID) === false && newAlternateForm === true ?
 
-                              <React.Fragment>,&nbsp;</React.Fragment>
+                            <React.Fragment>
 
-                              : null}
+                              {index !== 0 ?
 
-                            <a href="#" onClick={(event) => { event.preventDefault(); getTerm(alternateForm.alternateFormID); }}>{alternateForm.termsAlternateForm}</a>
+                                <React.Fragment>,&nbsp;</React.Fragment>
 
-                          </React.Fragment>
+                                : null}
 
-                          : null}
+                              <a href="#" onClick={(event) => { event.preventDefault(); getTerm(alternateForm.alternateFormID); }}>{alternateForm.termsAlternateForm}</a>
 
-                      </React.Fragment>
-                    );
-                  })}
+                            </React.Fragment>
 
-                </p>
+                            : null}
+
+                        </React.Fragment>
+                      );
+                    })}
+
+                  </p>
+
+                </React.Fragment>
 
                 : null}
 
-              <h5>Synonyms:</h5>
-
               {isNonEmptyArray(termSynonyms) === true ?
 
-                <p>
+                <React.Fragment>
 
-                  {termSynonyms.map((termSynonym, index) => {
+                  <h5>Synonyms:</h5>
 
-                    let newSynonym = previousSynonymID !== termSynonym.synonymID ? true : false;
+                  <p>
 
-                    previousSynonymID = termSynonym.synonymID;
+                    {termSynonyms.map((termSynonym, index) => {
 
-                    return (
-                      <React.Fragment key={index}>
+                      let newSynonym = previousSynonymID !== termSynonym.synonymID ? true : false;
 
-                        {isEmpty(termSynonym.synonymID) === false && newSynonym === true ?
+                      previousSynonymID = termSynonym.synonymID;
 
-                          <React.Fragment>
+                      return (
+                        <React.Fragment key={index}>
 
-                            {index !== 0 ?
+                          {isEmpty(termSynonym.synonymID) === false && newSynonym === true ?
 
-                              <React.Fragment>,&nbsp;</React.Fragment>
+                            <React.Fragment>
 
-                              : null}
+                              {index !== 0 ?
 
-                            <a href="#" onClick={(event) => { event.preventDefault(); getTerm(termSynonym.synonymID); }}>{termSynonym.termsSynonym}</a>
+                                <React.Fragment>,&nbsp;</React.Fragment>
 
-                          </React.Fragment>
+                                : null}
 
-                          : null}
+                              <a href="#" onClick={(event) => { event.preventDefault(); getTerm(termSynonym.synonymID); }}>{termSynonym.termsSynonym}</a>
 
-                      </React.Fragment>
-                    );
-                  })}
+                            </React.Fragment>
 
-                </p>
+                            : null}
+
+                        </React.Fragment>
+                      );
+                    })}
+
+                  </p>
+
+                </React.Fragment>
 
                 : null}
 
@@ -336,24 +351,36 @@ const Terms = (props) => {
 
               {termTitles.map((termTitle, index) => {
 
+                let newQuotation = previousQuotation !== termTitle.quotation ? true : false;
+
+                previousQuotation = termTitle.quotation;
+
                 return (
                   <React.Fragment key={index}>
 
-                    <TitleCard linkName={termTitle.titleURL} imageSide="right" />
+                    {isEmpty(termTitle.quotation) === false && newQuotation === true ?
 
-                    {/* <Col key={termTitle.titleID} xs="6" className="mb-4">
+                      <React.Fragment>
 
-                    <Link to={termTitle.titleURL} onClick={(event) => { event.preventDefault(); redirectPage(termTitle.titleURL); }}>{termTitle.titleName}</Link>
+                        <TitleTerm linkName={termTitle.titleURL} showShortDescription={true} termTitle={termTitle} imageSide="right" />
 
-                    {isEmpty(termTitle.publicationDate) === false ? <span className="ms-1 smaller-text">({displayYear(termTitle.publicationDate)})</span> : null}
+                        {/* <Col key={termTitle.titleID} xs="6" className="mb-4">
 
-                    <Link to={termTitle.titleURL} onClick={(event) => { event.preventDefault(); redirectPage(termTitle.titleURL); }}>
+                          <Link to={termTitle.titleURL} onClick={(event) => { event.preventDefault(); redirectPage(termTitle.titleURL); }}>{termTitle.titleName}</Link>
 
-                      {isEmpty(termTitle.imageName) === false ? <Image onError={() => { console.error("Title image not loaded!"); fetch(baseURL + "titles/broken/" + termTitle.titleID, { method: "GET", headers: new Headers({ "Content-Type": "application/json" }) }); }} src={setLocalImagePath(termTitle.imageName)} alt={termTitle.titleName} /> : <Image className="no-image-icon" />}
+                          {isEmpty(termTitle.publicationDate) === false ? <span className="ms-1 smaller-text">({displayYear(termTitle.publicationDate)})</span> : null}
 
-                    </Link>
+                          <Link to={termTitle.titleURL} onClick={(event) => { event.preventDefault(); redirectPage(termTitle.titleURL); }}>
 
-                  </Col> */}
+                            {isEmpty(termTitle.imageName) === false ? <Image onError={() => { console.error("Title image not loaded!"); fetch(baseURL + "titles/broken/" + termTitle.titleID, { method: "GET", headers: new Headers({ "Content-Type": "application/json" }) }); }} src={setLocalImagePath(termTitle.imageName)} alt={termTitle.titleName} /> : <Image className="no-image-icon" />}
+
+                          </Link>
+
+                        </Col> */}
+
+                      </React.Fragment>
+
+                      : null}
 
                   </React.Fragment>
                 );
