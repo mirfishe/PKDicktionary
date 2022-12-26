@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { Container, Col, Row, Card, CardBody, CardText, CardHeader, CardFooter, CardImg, Alert } from "reactstrap";
 import { Image } from "react-bootstrap-icons";
 import applicationSettings from "../../app/environment";
-import { noFunctionAvailable, isEmpty, getDateTime, isNonEmptyArray, displayYear, truncateText } from "shared-functions";
-import { encodeURL, decodeURL, setLocalPath, setLocalImagePath } from "../../utilities/ApplicationFunctions";
+import { isEmpty, getDateTime, isNonEmptyArray, displayYear, truncateText } from "shared-functions";
+import { encodeURL, setLocalImagePath } from "../../utilities/ApplicationFunctions";
 
-const TitleCard = (props) => {
+const TitleTerm = (props) => {
 
   // * Available props: -- 10/21/2022 MF
-  // * Properties: additionalText, headerText, imageSide, linkName, showShortDescription -- 10/21/2022 MF
-  // * Functions: redirectPage -- 10/21/2022 MF
+  // * Properties: termTitle -- 10/21/2022 MF
 
-  const componentName = "TitleCard";
+  const componentName = "TitleTerm";
 
   // ! Loading the baseURL from the state store here is too slow. -- 03/06/2021 MF
   // ! Always pulling it from environment.js. -- 03/06/2021 MF
@@ -25,12 +23,11 @@ const TitleCard = (props) => {
 
   const arrayTitles = useSelector(state => state.titles.arrayTitles);
 
-  let additionalText = isEmpty(props) === false && isEmpty(props.additionalText) === false ? props.additionalText : "";
+  let termTitle = isEmpty(props) === false && isEmpty(props.termTitle) === false ? props.termTitle : {};
   let headerText = isEmpty(props) === false && isEmpty(props.headerText) === false ? props.headerText : "";
   let imageSide = isEmpty(props) === false && isEmpty(props.imageSide) === false ? props.imageSide : "left";
   let linkName = isEmpty(props) === false && isEmpty(props.linkName) === false ? props.linkName : "";
   let showShortDescription = isEmpty(props) === false && isEmpty(props.showShortDescription) === false ? props.showShortDescription : "";
-  let redirectPage = isEmpty(props) === false && isEmpty(props.redirectPage) === false ? props.redirectPage : noFunctionAvailable;
 
   const [titleParam, setTitleParam] = useState(null);
   const [titleList, setTitleList] = useState([]);
@@ -117,9 +114,9 @@ const TitleCard = (props) => {
 
                       <Col className="col-md-4">
 
-                        <Link to={title.titleURL} onClick={(event) => { event.preventDefault(); redirectPage(title.titleURL); }}>
+                        <a href={"https://philipdick.com/pkd-and-me/" + linkName.replaceAll("/", "")} target="_blank" rel="noopener noreferrer">
                           {isEmpty(title.imageName) === false ? <CardImg onError={() => { console.error("Title image not loaded!"); fetch(baseURL + "titles/broken/" + title.titleID, { method: "GET", headers: new Headers({ "Content-Type": "application/json" }) }); }} src={setLocalImagePath(title.imageName)} alt={title.titleName} /> : <Image className="no-image-icon" />}
-                        </Link>
+                        </a>
 
                       </Col>
 
@@ -130,15 +127,15 @@ const TitleCard = (props) => {
 
                         {/* <CardText><Link to={title.replaceAll("-", "|").replaceAll(" ", "-")}>{title.category}</Link></CardText> */}
 
-                        <CardText><Link to={title.titleURL} onClick={(event) => { event.preventDefault(); redirectPage(title.titleURL); }}>{title.titleName}</Link>
+                        <CardText><a href={"https://philipdick.com/pkd-and-me/" + linkName.replaceAll("/", "")} target="_blank" rel="noopener noreferrer">{title.titleName}</a>
 
                           {isEmpty(title.publicationDate) === false ? <span className="ms-1 smaller-text">({displayYear(title.publicationDate)})</span> : null}</CardText>
 
                         <CardText className="smaller-text">{title.authorFirstName} {title.authorLastName}</CardText>
 
-                        {isEmpty(additionalText) === false ? <CardText className="my-4">{additionalText}</CardText> : null}
+                        {showShortDescription === true && isEmpty(title.shortDescription) === false ? <p className="my-4 display-paragraphs">{truncateText(title.shortDescription, 250)}</p> : null}
 
-                        {showShortDescription && isEmpty(title.shortDescription) === false ? <p className="my-4 display-paragraphs">{truncateText(title.shortDescription, 250)}</p> : null}
+                        {isEmpty(termTitle.quotation) === false ? <p className="my-4 display-paragraphs">{truncateText(termTitle.quotation, 250)}</p> : null}
 
                         {/* {isEmpty(admin) === false && admin === true ? <AddTitle displayButton={true} /> : null}
                                 {isEmpty(admin) === false && admin === true ? <EditTitle titleID={title.titleID} displayButton={true} /> : null}
@@ -151,9 +148,9 @@ const TitleCard = (props) => {
 
                       <Col className="col-md-4">
 
-                        <Link to={title.titleURL} onClick={(event) => { event.preventDefault(); redirectPage(title.titleURL); }}>
+                        <a href={"https://philipdick.com/pkd-and-me/" + linkName.replaceAll("/", "")} target="_blank" rel="noopener noreferrer">
                           {isEmpty(title.imageName) === false ? <CardImg onError={() => { console.error("Title image not loaded!"); fetch(baseURL + "titles/broken/" + title.titleID, { method: "GET", headers: new Headers({ "Content-Type": "application/json" }) }); }} src={setLocalImagePath(title.imageName)} alt={title.titleName} /> : <Image className="no-image-icon" />}
-                        </Link>
+                        </a>
 
                       </Col>
 
@@ -162,7 +159,7 @@ const TitleCard = (props) => {
                   </Row>
                   <CardFooter className="card-footer">
 
-                    <CardText><Link to={encodeURL(titleList[0].category)} onClick={(event) => { event.preventDefault(); redirectPage(encodeURL(titleList[0].category)); }}>{titleList[0].category}</Link></CardText>
+                    <CardText><a href={"https://philipdick.com/pkd-and-me/" + encodeURL(titleList[0].category)} target="_blank" rel="noopener noreferrer">{titleList[0].category}</a></CardText>
 
                   </CardFooter>
                 </Card>
@@ -179,4 +176,4 @@ const TitleCard = (props) => {
   );
 };
 
-export default TitleCard;
+export default TitleTerm;

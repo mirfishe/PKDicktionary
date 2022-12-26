@@ -29,9 +29,9 @@ function LoadBibliographyData() {
   // const lastDatabaseRetrievalTitles = useSelector(state => state.titles.lastDatabaseRetrievalTitles);
 
   const [titleMessage, setTitleMessage] = useState("");
-  const [errTitleMessage, setErrTitleMessage] = useState("");
+  const [errorTitleMessage, setErrorTitleMessage] = useState("");
   const [overallTitleRatingMessage, setOverallTitleRatingMessage] = useState("");
-  const [errOverallTitleRatingMessage, setErrOverallTitleRatingMessage] = useState("");
+  const [errorOverallTitleRatingMessage, setErrorOverallTitleRatingMessage] = useState("");
 
 
   useEffect(() => {
@@ -116,7 +116,7 @@ function LoadBibliographyData() {
   const getUserReviewsRatings = (titleData) => {
 
     setOverallTitleRatingMessage("");
-    setErrOverallTitleRatingMessage("");
+    setErrorOverallTitleRatingMessage("");
 
     let url = baseURL + "userreviews/";
 
@@ -144,6 +144,7 @@ function LoadBibliographyData() {
 
       })
       .then(results => {
+
         // setOverallTitleRatingMessage(results.message);
 
         if (isEmpty(results) === false && results.transactionSuccess === true) {
@@ -154,7 +155,7 @@ function LoadBibliographyData() {
           // } else {
 
           //   console.error(componentName, getDateTime(), "getUserReviewsRatings error", results.message);
-          //   // setErrOverallTitleRatingMessage(results.message);
+          //   // setErrorOverallTitleRatingMessage(results.message);
           //   // dispatch(setUserReviewsRatingsDataOffline(true));
           //   // * Not going to need to load user reviews from local results. -- 03/06/2021 MF
           //   // fetchLocalDataUserReviewsRatings(titleData);
@@ -163,11 +164,12 @@ function LoadBibliographyData() {
 
       })
       .catch((error) => {
+
         console.error(componentName, getDateTime(), "getUserReviewsRatings error", error);
         // console.error(componentName, getDateTime(), "getUserReviewsRatings error.name", error.name);
         // console.error(componentName, getDateTime(), "getUserReviewsRatings error.message", error.message);
 
-        // setErrOverallTitleRatingMessage(error.name + ": " + error.message);
+        // setErrorOverallTitleRatingMessage(error.name + ": " + error.message);
         // * Not going to need to load user reviews from local results. -- 03/06/2021 MF
         // dispatch(setUserReviewsRatingsDataOffline(true));
         // fetchLocalDataUserReviewsRatings(titleData);
@@ -220,7 +222,7 @@ function LoadBibliographyData() {
   const getTitles = () => {
 
     setTitleMessage("");
-    setErrTitleMessage("");
+    setErrorTitleMessage("");
 
     let url = baseURL + "titles";
 
@@ -254,7 +256,7 @@ function LoadBibliographyData() {
         } else {
 
           console.error(componentName, getDateTime(), "getTitles error", results.message);
-          // setErrTitleMessage(results.message);
+          // setErrorTitleMessage(results.message);
           // dispatch(setTitlesDataOffline(true));
           fetchLocalDataTitles();
 
@@ -262,11 +264,12 @@ function LoadBibliographyData() {
 
       })
       .catch((error) => {
+
         console.error(componentName, getDateTime(), "getTitles error", error);
         // console.error(componentName, getDateTime(), "getTitles error.name", error.name);
         // console.error(componentName, getDateTime(), "getTitles error.message", error.message);
 
-        // setErrTitleMessage(error.name + ": " + error.message);
+        // setErrorTitleMessage(error.name + ": " + error.message);
         // dispatch(setTitlesDataOffline(true));
         fetchLocalDataTitles();
 
@@ -310,7 +313,7 @@ function LoadBibliographyData() {
         } else {
 
           console.error(componentName, getDateTime(), "fetchLocalDataTitles error", results.message);
-          // setErrTitleMessage(results.message);
+          // setErrorTitleMessage(results.message);
           // dispatch(setTitlesDataOffline(true));
           // loadDataStore(TitleData, "titles");
 
@@ -318,11 +321,12 @@ function LoadBibliographyData() {
 
       })
       .catch((error) => {
+
         console.error(componentName, getDateTime(), "fetchLocalDataTitles error", error);
         // console.error(componentName, getDateTime(), "fetchLocalDataTitles error.name", error.name);
         // console.error(componentName, getDateTime(), "fetchLocalDataTitles error.message", error.message);
 
-        // setErrTitleMessage(error.name + ": " + error.message);
+        // setErrorTitleMessage(error.name + ": " + error.message);
         // ! This doesn't actually run as far as I can tell. -- 03/06/2021 MF
         // dispatch(setTitlesDataOffline(true));
         // loadDataStore(TitleData, "titles");
@@ -338,10 +342,10 @@ function LoadBibliographyData() {
     <Row className="text-center">
 
       {isEmpty(titleMessage) === false ? <Alert color="info">{titleMessage}</Alert> : null}
-      {isEmpty(errTitleMessage) === false ? <Alert color="danger">{errTitleMessage}</Alert> : null}
+      {isEmpty(errorTitleMessage) === false ? <Alert color="danger">{errorTitleMessage}</Alert> : null}
 
       {isEmpty(overallTitleRatingMessage) === false ? <Alert color="info">{overallTitleRatingMessage}</Alert> : null}
-      {isEmpty(errOverallTitleRatingMessage) === false ? <Alert color="danger">{errOverallTitleRatingMessage}</Alert> : null}
+      {isEmpty(errorOverallTitleRatingMessage) === false ? <Alert color="danger">{errorOverallTitleRatingMessage}</Alert> : null}
     </Row>
   );
 }
