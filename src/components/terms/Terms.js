@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 // import { Link } from "react-router-dom";
 import { Container, Col, Row, Alert } from "reactstrap";
 // import { Image } from "react-bootstrap-icons";
 import applicationSettings from "../../app/environment";
-import { isEmpty, getDateTime, isNonEmptyArray } from "shared-functions";
-// import { encodeURL, decodeURL, setLocalPath, setLocalImagePath, addErrorLog } from "../../utilities/ApplicationFunctions";
+import { noFunctionAvailable, isEmpty, getDateTime, isNonEmptyArray } from "shared-functions";
+import { encodeURL, decodeURL, setLocalPath, setLocalImagePath, addErrorLog } from "../../utilities/ApplicationFunctions";
 import TitleTerm from "../titles/TitleTerm";
 
 const Terms = (props) => {
+
+  // * Available props: -- 10/21/2022 MF
+  // * Properties: linkItem -- 10/21/2022 MF
+  // * Functions: redirectPage -- 10/21/2022 MF
 
   const componentName = "Terms";
 
@@ -20,6 +24,11 @@ const Terms = (props) => {
   // const baseURL = useSelector(state => state.applicationSettings.baseURL);
   const baseURL = applicationSettings.baseURL;
 
+  const arrayTerms = useSelector(state => state.terms.arrayTerms);
+
+  let linkItem = isEmpty(props) === false && isEmpty(props.linkItem) === false ? props.linkItem : null;
+  let redirectPage = isEmpty(props) === false && isEmpty(props.redirectPage) === false ? props.redirectPage : noFunctionAvailable;
+
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [messageVisible, setMessageVisible] = useState(false);
@@ -30,7 +39,6 @@ const Terms = (props) => {
   const onDismissMessage = () => setMessageVisible(false);
   const onDismissErrorMessage = () => setErrorMessageVisible(false);
 
-  const [terms, setTerms] = useState([]);
   const [term, setTerm] = useState({});
   const [termCategories, setTermCategories] = useState([]);
   const [termSynonyms, setTermSynonyms] = useState([]);
@@ -45,67 +53,13 @@ const Terms = (props) => {
 
   useEffect(() => {
 
-    getTerms();
+    if (isEmpty(linkItem) === false && isEmpty(linkItem.linkID) === false) {
 
-  }, []);
+      getTerm(linkItem.linkID);
 
+    };
 
-  // useEffect(() => {
-
-  //   if (admin !== true) {
-
-  //     navigate("/");
-
-  //   };
-
-  // }, [admin]);
-
-
-  const getTerms = () => {
-
-    let url = baseURL + "terms/";
-
-    fetch(url, {
-      method: "GET",
-      headers: new Headers({
-        "Content-Type": "application/json"
-      })
-    })
-      .then(response => {
-
-        if (response.ok !== true) {
-
-          throw Error(`${response.status} ${response.statusText} ${response.url}`);
-
-        } else {
-
-          return response.json();
-
-        };
-
-      })
-      .then(results => {
-
-        if (isEmpty(results) === false && results.transactionSuccess === true) {
-
-
-          setTerms(results.records);
-          // setTerms(results.records[0]);
-
-        };
-
-      })
-      .catch((error) => {
-
-        // console.error(componentName, getDateTime(), "getTerms error", error);
-
-        addErrorMessage(error.name + ": " + error.message);
-
-        // addErrorLog(baseURL, operationValue, componentName, { url: url, response: { ok: response.ok, redirected: response.redirected, status: response.status, statusText: response.statusText, type: response.type, url: response.url }, recordObject, errorData: { name: error.name, message: error.message, stack: error.stack } });
-
-      });
-
-  };
+  }, [linkItem, arrayTerms]);
 
 
   const getTerm = (termID) => {
@@ -136,7 +90,6 @@ const Terms = (props) => {
         if (isEmpty(results) === false && results.transactionSuccess === true) {
 
 
-          // setTerm(results.records);
           setTerm(results.records[0]);
 
           setTermCategories(results.records.sort());
@@ -167,14 +120,14 @@ const Terms = (props) => {
       <Alert color="info" isOpen={messageVisible} toggle={onDismissMessage}>{message}</Alert>
       <Alert color="danger" isOpen={errorMessageVisible} toggle={onDismissErrorMessage}>{errorMessage}</Alert>
 
-      {isNonEmptyArray(terms) === true ?
+      {isNonEmptyArray(arrayTerms) === true ?
 
         <Row>
           <Col xs="12">
 
             <h4 className="text-center mb-4">Terms</h4>
 
-            {terms.map((term, index) => {
+            {arrayTerms.map((term, index) => {
 
               return (
                 <React.Fragment key={index}>
@@ -185,7 +138,7 @@ const Terms = (props) => {
 
                     : null}
 
-                  <a href="#" onClick={(event) => { event.preventDefault(); getTerm(term.termID); }}>{term.term}</a>
+                  <a href="#" onClick={(event) => { event.preventDefault(); redirectPage(encodeURL(term.term)); /* getTerm(term.termID); */ }}>{term.term}</a>
 
                 </React.Fragment>
               );
