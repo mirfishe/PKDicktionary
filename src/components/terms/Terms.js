@@ -89,7 +89,6 @@ const Terms = (props) => {
 
         if (isEmpty(results) === false && results.transactionSuccess === true) {
 
-
           setTerm(results.records[0]);
 
           setTermCategories(results.records.sort());
