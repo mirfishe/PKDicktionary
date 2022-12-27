@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Row, Alert } from "reactstrap";
 import applicationSettings from "../../app/environment";
 import { isEmpty, getDateTime, isNonEmptyArray, hasNonEmptyProperty } from "shared-functions";
-import { encodeURL /* , addErrorLog */ } from "../../utilities/ApplicationFunctions";
+// import { encodeURL /* , addErrorLog */ } from "../../utilities/ApplicationFunctions";
 import { loadArrayURLs } from "../../app/urlsSlice";
 import { loadArrayTerms, /* setTermsDataOffline */ } from "../../app/termsSlice";
 
@@ -67,7 +67,7 @@ function LoadBibliographyData() {
 
         if (source === "terms") {
 
-          arrayURLs.push({ linkName: data[i].term, linkType: source, linkID: data[i].termID, linkTypeNameID: data[i].categoryID, linkTypeName: data[i].category });
+          arrayURLs.push({ linkName: data[i].term, linkType: source, linkID: data[i].termID, linkTypeNameID: null, linkTypeName: null });
 
         };
 

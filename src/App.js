@@ -59,11 +59,8 @@ const App = (props) => {
 
   };
 
-  // const arrayURLs = useSelector(state => state.urls.arrayURLs);
-  // const pageURL = useSelector(state => state.urls.pageURL);
-  // const linkItem = useSelector(state => state.urls.linkItem);
-  // const arrayURLs = useSelector(state => state.urls.arrayURLs);
-  // const pageURL = useSelector(state => state.urls.pageURL);
+  const arrayURLs = useSelector(state => state.urls.arrayURLs);
+  const pageURL = useSelector(state => state.urls.pageURL);
   const linkItem = useSelector(state => state.urls.linkItem);
 
   // ! Loading the routerBaseName from the state store here is too slow. -- 03/06/2021 MF
@@ -330,6 +327,26 @@ const App = (props) => {
   }, [computerLog, /*latitude, longitude, postalCode*/ url1Loaded, url2Loaded]);
 
 
+  useEffect(() => {
+
+    if (isEmpty(pageURL) === false && isNonEmptyArray(arrayURLs) === true) {
+
+      let linkArrayItem = {};
+
+      for (let i = 0; i < arrayURLs.length; i++) {
+
+        linkArrayItem = arrayURLs.find(linkName => linkName.linkName === pageURL.replaceAll("/", ""));
+        // setLinkItem(linkArrayItem);
+
+      };
+
+      dispatch(setLinkItem(linkArrayItem));
+
+    };
+
+  }, [pageURL, arrayURLs]);
+
+
   const redirectPage = (linkName) => {
 
     // * Scroll to top of the page after clicking the link. -- 08/05/2021 MF
@@ -397,7 +414,7 @@ const App = (props) => {
 
             <Row className="text-center">
 
-              {/* {isEmpty(linkItem) === false && hasNonEmptyProperty(linkItem, "linkName") ? <Alert color="info">{JSON.stringify(linkItem, null, 1)}</Alert> : null} */}
+              {/* {isEmpty(linkItem) === false && isEmpty(linkItem.linkName)===false ? <Alert color="info">{JSON.stringify(linkItem, null, 1)}</Alert> : null} */}
 
               <Alert color="info" isOpen={messageVisible} toggle={onDismissMessage}>{message}</Alert>
               <Alert color="danger" isOpen={errorMessageVisible} toggle={onDismissErrorMessage}>{errorMessage}</Alert>
@@ -428,8 +445,6 @@ const App = (props) => {
 
               <Route path="/errors" element={<Errors />} />
 
-              <Route path="/terms" element={<Terms />} />
-
               {/* </React.Fragment>
 
                 : null} */}
@@ -438,7 +453,7 @@ const App = (props) => {
               <Route path="/terms" element={<Terms redirectPage={redirectPage} />} />
 
               {/* // ! These need to stay at the bottom of the list so that the links above will work properly. -- 03/06/2021 MF */}
-              {isEmpty(linkItem) === false && hasNonEmptyProperty(linkItem, "linkName") && linkItem.linkType === "terms" ? <Route path="/:linkName" element={<Terms redirectPage={redirectPage} linkItem={linkItem} />} /> : null}
+              {isEmpty(linkItem) === false && isEmpty(linkItem.linkName) === false && linkItem.linkType === "terms" ? <Route path="/:linkName" element={<Terms redirectPage={redirectPage} linkItem={linkItem} />} /> : null}
 
             </Routes>
 
