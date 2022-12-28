@@ -16,6 +16,7 @@ import About from "./content/About";
 // import TermSuggestions from "./components/termSuggestion/TermSuggestions";
 // import AddTermSuggestion from "./components/termSuggestion/AddTermSuggestion";
 import Terms from "./components/terms/Terms";
+import Term from "./components/terms/Term";
 import ComputerLogs from "./components/reports/ComputerLogs";
 import Logs from "./components/reports/Logs";
 import Errors from "./components/reports/Errors";
@@ -62,6 +63,8 @@ const App = (props) => {
   const arrayURLs = useSelector(state => state.urls.arrayURLs);
   const pageURL = useSelector(state => state.urls.pageURL);
   const linkItem = useSelector(state => state.urls.linkItem);
+
+  const arrayTerms = useSelector(state => state.terms.arrayTerms);
 
   // ! Loading the routerBaseName from the state store here is too slow. -- 03/06/2021 MF
   // ! Always pulling it from environment.js. -- 03/06/2021 MF
@@ -372,13 +375,13 @@ const App = (props) => {
             <NavLink tag={Link} to="/"><NavbarText>Home</NavbarText></NavLink>
           </NavItem>
 
-          {showTerms === true || showAllMenuItems === true ?
+          {/* {showTerms === true || showAllMenuItems === true ?
 
             <NavItem>
               <NavLink tag={Link} to="/terms"><NavbarText>Terms</NavbarText></NavLink>
             </NavItem>
 
-            : null}
+            : null} */}
 
           {showAbout === true || showAllMenuItems === true ?
 
@@ -410,7 +413,12 @@ const App = (props) => {
 
       <Container className="body-container mb-5">
         <Row>
-          <Col xs="12">
+          <Col xs="2">
+
+            {isEmpty(arrayTerms) === false ? <Terms redirectPage={redirectPage} /> : null}
+
+          </Col>
+          <Col xs="10">
 
             <Row className="text-center">
 
@@ -453,7 +461,7 @@ const App = (props) => {
               <Route path="/terms" element={<Terms redirectPage={redirectPage} />} />
 
               {/* // ! These need to stay at the bottom of the list so that the links above will work properly. -- 03/06/2021 MF */}
-              {isEmpty(linkItem) === false && isEmpty(linkItem.linkName) === false && linkItem.linkType === "terms" ? <Route path="/:linkName" element={<Terms redirectPage={redirectPage} linkItem={linkItem} />} /> : null}
+              {isEmpty(linkItem) === false && isEmpty(linkItem.linkName) === false && linkItem.linkType === "terms" ? <Route path="/:linkName" element={<Term redirectPage={redirectPage} linkItem={linkItem} />} /> : null}
 
             </Routes>
 
