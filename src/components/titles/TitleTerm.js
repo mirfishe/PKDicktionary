@@ -137,10 +137,6 @@ const TitleTerm = (props) => {
 
                         {isEmpty(termTitle.quotation) === false ? <p className="my-4 display-paragraphs">{truncateText(termTitle.quotation, 250)}</p> : null}
 
-                        {/* {isEmpty(admin) === false && admin === true ? <AddTitle displayButton={true} /> : null}
-                                {isEmpty(admin) === false && admin === true ? <EditTitle titleID={title.titleID} displayButton={true} /> : null}
-                                {isEmpty(admin) === false && admin === true ? <EditEdition titleID={title.titleID} titlePublicationDate={title.publicationDate} titleImageName={title.imageName} displayButton={true} /> : null} */}
-
                       </CardBody>
                     </Col>
 
