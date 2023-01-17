@@ -130,7 +130,6 @@ const applicationSettingsSlice = createSlice({
     },
     addInformationMessage(state, action) {
 
-
       if (isEmpty(action.payload) === false) {
 
         // * Make sure that the new phrase isn't in the existing information message. -- 09/27/2021 MF
@@ -168,11 +167,9 @@ const applicationSettingsSlice = createSlice({
 
       if (isEmpty(action.payload) === false) {
 
-
         // * Make sure that the new phrase isn't in the existing success message. -- 09/27/2021 MF
         // if (state.successMessage !== action.payload) {
         if (state.successMessage.includes(action.payload) === false) {
-
 
           if (isEmpty(state.successMessage) === false) {
 
@@ -204,14 +201,11 @@ const applicationSettingsSlice = createSlice({
     },
     addWarningMessage(state, action) {
 
-
       if (isEmpty(action.payload) === false) {
-
 
         // * Make sure that the new phrase isn't in the existing warning message. -- 09/27/2021 MF
         // if (state.warningMessage !== action.payload) {
         if (state.warningMessage.includes(action.payload) === false) {
-
 
           if (isEmpty(state.warningMessage) === false) {
 
@@ -243,14 +237,11 @@ const applicationSettingsSlice = createSlice({
     },
     addErrorMessage(state, action) {
 
-
       if (isEmpty(action.payload) === false) {
-
 
         // * Make sure that the new phrase isn't in the existing error message. -- 09/27/2021 MF
         // if (state.errorMessage !== action.payload) {
         if (state.errorMessage.includes(action.payload) === false) {
-
 
           if (isEmpty(state.errorMessage) === false) {
 

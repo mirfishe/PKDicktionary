@@ -127,7 +127,6 @@ const Logs = () => {
 
                 {logs.map((log, index) => {
 
-
                   return (
                     <tr key={index}>
                       {isEmpty(log.createDate) === false ? <td>{log.createDate.slice(0, 19).replace("T", " ")}</td> : <td>{log.createDate}</td>}

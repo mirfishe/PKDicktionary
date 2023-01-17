@@ -127,7 +127,6 @@ const Errors = () => {
 
                 {errors.map((error, index) => {
 
-
                   return (
                     <tr key={index}>
                       {isEmpty(error.createDate) === false ? <td>{error.createDate.slice(0, 19).replace("T", " ")}</td> : <td>{error.createDate}</td>}
