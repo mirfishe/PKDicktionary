@@ -107,7 +107,6 @@ function LoadBibliographyData() {
 
         if (isEmpty(results) === false && results.transactionSuccess === true) {
 
-
           loadDataStore(results.records, "terms");
 
         };

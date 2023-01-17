@@ -131,7 +131,6 @@ const ComputerLogs = () => {
 
                 {computerLogs.map((computerLog, index) => {
 
-
                   return (
                     <tr key={index}>
                       {isEmpty(computerLog.lastAccessed) === false ? <td>{computerLog.lastAccessed.slice(0, 19).replace("T", " ")}</td> : <td>{computerLog.lastAccessed}</td>}
