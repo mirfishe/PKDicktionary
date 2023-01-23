@@ -10,14 +10,14 @@ const initialState = {
   locationLogged: false,
   hostname: "",
   profileType: "",
-  // API_URL: "",
-  // baseURL: "",
+  baseURL: "",
   tagManagerArgsgtmId: "",
   siteName: "",
   applicationName: "",
   metaDescription: "",
   defaultPageComponent: "",
   routerBaseName: "",
+  applicationOffline: false,
   applicationAllowUserInteractions: true,
   requireUserLogin: true,
   applicationSettingsLoaded: false,
@@ -63,16 +63,11 @@ const applicationSettingsSlice = createSlice({
       state.profileType = action.payload;
 
     },
-    // setAPI_URL(state, action) {
+    setBaseURL(state, action) {
 
-    //     state.API_URL = action.payload;
+      state.baseURL = action.payload;
 
-    // },
-    // setBaseURL(state, action) {
-
-    //       state.baseURL = action.payload;
-
-    //   },
+    },
     setTagManagerArgsgtmId(state, action) {
 
       state.tagManagerArgsgtmId = action.payload;
@@ -101,6 +96,11 @@ const applicationSettingsSlice = createSlice({
     setRouterBaseName(state, action) {
 
       state.routerBaseName = action.payload;
+
+    },
+    setApplicationOffline(state, action) {
+
+      state.applicationOffline = action.payload;
 
     },
     setApplicationAllowUserInteractions(state, action) {
@@ -292,6 +292,6 @@ const applicationSettingsSlice = createSlice({
   }
 });
 
-export const { setApplicationVersion, setCopyrightYear, setLocationLogged, setHostname, setProfileType, /*setAPI_URL, setBaseURL,*/ setTagManagerArgsgtmId, setSiteName, setApplicationName, setMetaDescription, setDefaultPageComponent, setRouterBaseName, setApplicationAllowUserInteractions, setRequireUserLogin, setApplicationSettingsLoaded, setApplicationSettingsJsonLoaded, setMenuSettings, addInformationMessage, addSuccessMessage, addWarningMessage, addErrorMessage, clearMessages, setShowMessages } = applicationSettingsSlice.actions;
+export const { setApplicationVersion, setCopyrightYear, setLocationLogged, setHostname, setProfileType, setBaseURL, setTagManagerArgsgtmId, setSiteName, setApplicationName, setMetaDescription, setDefaultPageComponent, setRouterBaseName, setApplicationOffline, setApplicationAllowUserInteractions, setRequireUserLogin, setApplicationSettingsLoaded, setApplicationSettingsJsonLoaded, setMenuSettings, addInformationMessage, addSuccessMessage, addWarningMessage, addErrorMessage, clearMessages, setShowMessages } = applicationSettingsSlice.actions;
 
 export default applicationSettingsSlice.reducer;

@@ -3,9 +3,8 @@ import { useSelector } from "react-redux";
 // import { Link } from "react-router-dom";
 import { Container, Col, Row, Alert } from "reactstrap";
 // import { Image } from "react-bootstrap-icons";
-import applicationSettings from "../../app/environment";
-import { noFunctionAvailable, isEmpty, getDateTime, isNonEmptyArray } from "shared-functions";
-// import { encodeURL, decodeURL, setLocalPath, setLocalImagePath, addErrorLog } from "../../utilities/ApplicationFunctions";
+import { noFunctionAvailable, isEmpty, getDateTime, isNonEmptyArray, addErrorLog } from "shared-functions";
+// import { encodeURL, decodeURL, setLocalPath, setLocalImagePath } from "../../utilities/ApplicationFunctions";
 import TitleTerm from "../titles/TitleTerm";
 
 const Term = (props) => {
@@ -16,13 +15,11 @@ const Term = (props) => {
 
   const componentName = "Term";
 
+  const profileType = useSelector(state => state.applicationSettings.profileType);
+  const baseURL = useSelector(state => state.applicationSettings.baseURL);
+
   // const sessionToken = useSelector(state => state.user.sessionToken);
   // const admin = useSelector(state => state.user.admin);
-
-  // ! Loading the baseURL from the state store here is too slow. -- 03/06/2021 MF
-  // ! Always pulling it from environment.js. -- 03/06/2021 MF
-  // const baseURL = useSelector(state => state.applicationSettings.baseURL);
-  const baseURL = applicationSettings.baseURL;
 
   const arrayTerms = useSelector(state => state.terms.arrayTerms);
 
@@ -72,15 +69,15 @@ const Term = (props) => {
         "Content-Type": "application/json"
       })
     })
-      .then(response => {
+      .then(results => {
 
-        if (response.ok !== true) {
+        if (results.ok !== true) {
 
-          throw Error(`${response.status} ${response.statusText} ${response.url}`);
+          throw Error(`${results.status} ${results.statusText} ${results.url}`);
 
         } else {
 
-          return response.json();
+          return results.json();
 
         };
 
@@ -106,7 +103,7 @@ const Term = (props) => {
 
         addErrorMessage(error.name + ": " + error.message);
 
-        // addErrorLog(baseURL, operationValue, componentName, { url: url, response: { ok: response.ok, redirected: response.redirected, status: response.status, statusText: response.statusText, type: response.type, url: response.url }, recordObject, errorData: { name: error.name, message: error.message, stack: error.stack } });
+        // addErrorLog(baseURL, getFetchAuthorization(), databaseAvailable, allowLogging(), {  url: url, response: { ok: response.ok, redirected: response.redirected, status: response.status, statusText: response.statusText, type: response.type, url: response.url }, recordObject, errorData: { name: error.name, message: error.message, stack: error.stack } });
 
       });
 
@@ -295,7 +292,7 @@ const Term = (props) => {
 
                           <Link to={termTitle.titleURL} onClick={(event) => { event.preventDefault(); redirectPage(termTitle.titleURL); }}>
 
-                            {isEmpty(termTitle.imageName) === false ? <Image onError={() => { console.error("Title image not loaded!"); fetch(baseURL + "titles/broken/" + termTitle.titleID, { method: "GET", headers: new Headers({ "Content-Type": "application/json" }) }); }} src={setLocalImagePath(termTitle.imageName)} alt={termTitle.titleName} /> : <Image className="no-image-icon" />}
+                            {isEmpty(termTitle.imageName) === false ? <Image onError={() => { console.error("Title image not loaded!"); fetch(baseURL + "titles/broken/" + termTitle.titleID, { method: "GET", headers: new Headers({ "Content-Type": "application/json" }) }); }} src={setLocalImagePath(termTitle.imageName, profileType)} alt={termTitle.titleName} /> : <Image className="no-image-icon" />}
 
                           </Link>
 

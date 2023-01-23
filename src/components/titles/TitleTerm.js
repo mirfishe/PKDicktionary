@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Container, Col, Row, Card, CardBody, CardText, CardHeader, CardFooter, CardImg, Alert } from "reactstrap";
 import { Image } from "react-bootstrap-icons";
-import applicationSettings from "../../app/environment";
 import { isEmpty, getDateTime, isNonEmptyArray, displayYear, truncateText } from "shared-functions";
 import { encodeURL, setLocalImagePath } from "../../utilities/ApplicationFunctions";
 
@@ -13,10 +12,8 @@ const TitleTerm = (props) => {
 
   const componentName = "TitleTerm";
 
-  // ! Loading the baseURL from the state store here is too slow. -- 03/06/2021 MF
-  // ! Always pulling it from environment.js. -- 03/06/2021 MF
-  // const baseURL = useSelector(state => state.applicationSettings.baseURL);
-  const baseURL = applicationSettings.baseURL;
+  const baseURL = useSelector(state => state.applicationSettings.baseURL);
+  const profileType = useSelector(state => state.applicationSettings.profileType);
 
   // const sessionToken = useSelector(state => state.user.sessionToken);
   // const admin = useSelector(state => state.user.admin);
@@ -115,7 +112,7 @@ const TitleTerm = (props) => {
                       <Col className="col-md-4">
 
                         <a href={"https://philipdick.com/pkd-and-me/" + linkName.replaceAll("/", "")} target="_blank" rel="noopener noreferrer">
-                          {isEmpty(title.imageName) === false ? <CardImg onError={() => { console.error("Title image not loaded!"); fetch(baseURL + "titles/broken/" + title.titleID, { method: "GET", headers: new Headers({ "Content-Type": "application/json" }) }); }} src={setLocalImagePath(title.imageName)} alt={title.titleName} /> : <Image className="no-image-icon" />}
+                          {isEmpty(title.imageName) === false ? <CardImg onError={() => { console.error("Title image not loaded!"); fetch(baseURL + "titles/broken/" + title.titleID, { method: "GET", headers: new Headers({ "Content-Type": "application/json" }) }); }} src={setLocalImagePath(title.imageName, profileType)} alt={title.titleName} /> : <Image className="no-image-icon" />}
                         </a>
 
                       </Col>
@@ -145,7 +142,7 @@ const TitleTerm = (props) => {
                       <Col className="col-md-4">
 
                         <a href={"https://philipdick.com/pkd-and-me/" + linkName.replaceAll("/", "")} target="_blank" rel="noopener noreferrer">
-                          {isEmpty(title.imageName) === false ? <CardImg onError={() => { console.error("Title image not loaded!"); fetch(baseURL + "titles/broken/" + title.titleID, { method: "GET", headers: new Headers({ "Content-Type": "application/json" }) }); }} src={setLocalImagePath(title.imageName)} alt={title.titleName} /> : <Image className="no-image-icon" />}
+                          {isEmpty(title.imageName) === false ? <CardImg onError={() => { console.error("Title image not loaded!"); fetch(baseURL + "titles/broken/" + title.titleID, { method: "GET", headers: new Headers({ "Content-Type": "application/json" }) }); }} src={setLocalImagePath(title.imageName, profileType)} alt={title.titleName} /> : <Image className="no-image-icon" />}
                         </a>
 
                       </Col>

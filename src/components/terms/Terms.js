@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 // import { Link } from "react-router-dom";
 import { Container, Col, Row, Alert } from "reactstrap";
 // import { Image } from "react-bootstrap-icons";
-// import applicationSettings from "../../app/environment";
 import { noFunctionAvailable, isEmpty, getDateTime, isNonEmptyArray } from "shared-functions";
 import { encodeURL, decodeURL, setLocalPath, setLocalImagePath, addErrorLog } from "../../utilities/ApplicationFunctions";
 
