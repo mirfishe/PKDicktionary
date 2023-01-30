@@ -111,7 +111,7 @@ const TitleTerm = (props) => {
 
                       <Col className="col-md-4">
 
-                        <a href={"https://philipdick.com/pkd-and-me/" + linkName.replaceAll("/", "")} target="_blank" rel="noopener noreferrer">
+                        <a href={"https://philipdick.com/pkd-and-me/" + linkName.replaceAll("/", "")} target="_blank" rel="noopener">
                           {isEmpty(title.imageName) === false ? <CardImg onError={() => { console.error("Title image not loaded!"); fetch(baseURL + "titles/broken/" + title.titleID, { method: "GET", headers: new Headers({ "Content-Type": "application/json" }) }); }} src={setLocalImagePath(title.imageName, profileType)} alt={title.titleName} /> : <Image className="no-image-icon" />}
                         </a>
 
@@ -124,7 +124,7 @@ const TitleTerm = (props) => {
 
                         {/* <CardText><Link to={title.replaceAll("-", "|").replaceAll(" ", "-")}>{title.category}</Link></CardText> */}
 
-                        <CardText><a href={"https://philipdick.com/pkd-and-me/" + linkName.replaceAll("/", "")} target="_blank" rel="noopener noreferrer">{title.titleName}</a>
+                        <CardText><a href={"https://philipdick.com/pkd-and-me/" + linkName.replaceAll("/", "")} target="_blank" rel="noopener">{title.titleName}</a>
 
                           {isEmpty(title.publicationDate) === false ? <span className="ms-1 smaller-text">({displayYear(title.publicationDate)})</span> : null}</CardText>
 
@@ -141,7 +141,7 @@ const TitleTerm = (props) => {
 
                       <Col className="col-md-4">
 
-                        <a href={"https://philipdick.com/pkd-and-me/" + linkName.replaceAll("/", "")} target="_blank" rel="noopener noreferrer">
+                        <a href={"https://philipdick.com/pkd-and-me/" + linkName.replaceAll("/", "")} target="_blank" rel="noopener">
                           {isEmpty(title.imageName) === false ? <CardImg onError={() => { console.error("Title image not loaded!"); fetch(baseURL + "titles/broken/" + title.titleID, { method: "GET", headers: new Headers({ "Content-Type": "application/json" }) }); }} src={setLocalImagePath(title.imageName, profileType)} alt={title.titleName} /> : <Image className="no-image-icon" />}
                         </a>
 
@@ -152,7 +152,7 @@ const TitleTerm = (props) => {
                   </Row>
                   <CardFooter className="card-footer">
 
-                    <CardText><a href={"https://philipdick.com/pkd-and-me/" + encodeURL(titleList[0].category)} target="_blank" rel="noopener noreferrer">{titleList[0].category}</a></CardText>
+                    <CardText><a href={"https://philipdick.com/pkd-and-me/" + encodeURL(titleList[0].category)} target="_blank" rel="noopener">{titleList[0].category}</a></CardText>
 
                   </CardFooter>
                 </Card>

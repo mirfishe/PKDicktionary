@@ -396,11 +396,11 @@ const App = (props) => {
             : null}
 
           <NavItem className="mx-3 my-2">
-            <a href="https://sfdictionary.com" target="_blank" rel="noopener noreferrer"><NavbarText>Historical Dictionary of Science Fiction</NavbarText></a>
+            <a href="https://sfdictionary.com" target="_blank" rel="noopener"><NavbarText>Historical Dictionary of Science Fiction</NavbarText></a>
           </NavItem>
 
           <NavItem className="mx-3 my-2">
-            <a href="http://www.technovelgy.com/ct/AuthorTotalAlphaList.asp?AuNum=13" target="_blank" rel="noopener noreferrer"><NavbarText>Philip K. Dick:
+            <a href="http://www.technovelgy.com/ct/AuthorTotalAlphaList.asp?AuNum=13" target="_blank" rel="noopener"><NavbarText>Philip K. Dick:
               Science Fiction Technology and Ideas</NavbarText></a>
           </NavItem>
 
