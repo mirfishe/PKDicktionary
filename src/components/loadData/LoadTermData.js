@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Alert } from "reactstrap";
-import applicationSettings from "../../app/environment";
-import { isEmpty, getDateTime, isNonEmptyArray, hasNonEmptyProperty } from "shared-functions";
-import { encodeURL /* , addErrorLog */ } from "../../utilities/ApplicationFunctions";
+import { isEmpty, getDateTime, isNonEmptyArray, hasNonEmptyProperty, addErrorLog } from "shared-functions";
+import { encodeURL } from "../../utilities/ApplicationFunctions";
 import { loadArrayURLs } from "../../app/urlsSlice";
 import { loadArrayTerms, /* setTermsDataOffline */ } from "../../app/termsSlice";
 
@@ -13,15 +12,10 @@ function LoadBibliographyData() {
 
   const dispatch = useDispatch();
 
-  // ! Loading the baseURL from the state store here is too slow. -- 03/06/2021 MF
-  // ! Always pulling it from environment.js. -- 03/06/2021 MF
-  // const baseURL = useSelector(state => state.applicationSettings.baseURL);
-  const baseURL = applicationSettings.baseURL;
-
-  // ! Loading the applicationOffline from the state store here is too slow
-  // ! Always pulling it from environment.js. -- 03/06/2021 MF
-  // const applicationOffline = useSelector(state => state.applicationSettings.applicationOffline);
-  // const applicationOffline = applicationSettings.applicationOffline;
+  const baseURL = useSelector(state => state.applicationSettings.baseURL);
+  const applicationOffline = useSelector(state => state.applicationSettings.applicationOffline);
+  const applicationSettingsLoaded = useSelector(state => state.applicationSettings.applicationSettingsLoaded);
+  const applicationSettingsJsonLoaded = useSelector(state => state.applicationSettings.applicationSettingsJsonLoaded);
 
   // * Load settings from Redux slices. -- 03/06/2021 MF
   const termsLoaded = useSelector(state => state.terms.termsLoaded);
@@ -34,13 +28,17 @@ function LoadBibliographyData() {
 
   useEffect(() => {
 
-    if (termsLoaded !== true /* && termsDataLocalStorage !== true */) {
+    if (applicationSettingsJsonLoaded === true) {
 
-      getTerms();
+      if (termsLoaded !== true /* && termsDataLocalStorage !== true */) {
+
+        getTerms();
+
+      };
 
     };
 
-  }, []);
+  }, [ /* applicationSettingsLoaded, */ applicationSettingsJsonLoaded]);
 
 
   const loadDataStore = (data, source) => {
@@ -90,15 +88,15 @@ function LoadBibliographyData() {
         "Content-Type": "application/json"
       })
     })
-      .then(response => {
+      .then(results => {
 
-        if (response.ok !== true) {
+        if (results.ok !== true) {
 
-          throw Error(`${response.status} ${response.statusText} ${response.url}`);
+          throw Error(`${results.status} ${results.statusText} ${results.url}`);
 
         } else {
 
-          return response.json();
+          return results.json();
 
         };
 
@@ -120,7 +118,7 @@ function LoadBibliographyData() {
         // dispatch(setTermsDataOffline(true));
         fetchLocalDataTerms();
 
-        // addErrorLog(baseURL, operationValue, componentName, { url: url, response: { ok: response.ok, redirected: response.redirected, status: response.status, statusText: response.statusText, type: response.type, url: response.url }, recordObject, errorData: { name: error.name, message: error.message, stack: error.stack } });
+        // addErrorLog(baseURL, getFetchAuthorization(), databaseAvailable, allowLogging(), {  url: url, response: { ok: response.ok, redirected: response.redirected, status: response.status, statusText: response.statusText, type: response.type, url: response.url }, recordObject, errorData: { name: error.name, message: error.message, stack: error.stack } });
 
       });
 
@@ -132,11 +130,11 @@ function LoadBibliographyData() {
     let url = "bibliographyData/terms.json";
 
     fetch(url)
-      .then(response => {
+      .then(results => {
 
-        if (response.ok !== true) {
+        if (results.ok !== true) {
 
-          // throw Error(response.status + " " + response.statusText + " " + response.url);
+          // throw Error(results.status + " " + results.statusText + " " + results.url);
           // ! This error runs on the web server but not on the local developer computer. -- 03/06/2021 MF
           // * Load offline data. -- 03/06/2021 MF
           // dispatch(setTermsDataOffline(true));
@@ -146,7 +144,7 @@ function LoadBibliographyData() {
         } else {
 
           // dispatch(setTermsDataOffline(true));
-          return response.json();
+          return results.json();
 
         };
 
@@ -178,7 +176,7 @@ function LoadBibliographyData() {
         // dispatch(setTermsDataOffline(true));
         // loadDataStore(TermData, "terms");
 
-        // addErrorLog(baseURL, operationValue, componentName, { url: url, response: { ok: response.ok, redirected: response.redirected, status: response.status, statusText: response.statusText, type: response.type, url: response.url }, recordObject, errorData: { name: error.name, message: error.message, stack: error.stack } });
+        // addErrorLog(baseURL, getFetchAuthorization(), databaseAvailable, allowLogging(), {  url: url, response: { ok: response.ok, redirected: response.redirected, status: response.status, statusText: response.statusText, type: response.type, url: response.url }, recordObject, errorData: { name: error.name, message: error.message, stack: error.stack } });
 
       });
 

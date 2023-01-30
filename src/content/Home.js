@@ -12,6 +12,7 @@ const Home = (props) => {
 
   const componentName = "Home";
 
+  const profileType = useSelector(state => state.applicationSettings.profileType);
   const siteName = useSelector(state => state.applicationSettings.siteName);
   const applicationName = useSelector(state => state.applicationSettings.applicationName);
 
@@ -37,7 +38,7 @@ const Home = (props) => {
 
           <p>The work of Philip K. Dick references concepts, technologies and ideas in a type of shared universe so that things will appear in more than on novel or short story. This Dicktionary collects those terms with definitions, categorizations and references to the works in which the terms occur.</p>
 
-          <p>Earlier work at collecting this information (and the kernel of the information included here) is located at <a href="https://philipdick.com/resources/miscellaneous/pkdicktionary" target="_blank" rel="noopener noreferrer">PKDicktionary</a> in the <a href="https://philipdick.com" target="_blank" rel="noopener noreferrer">Philip K. Dick site</a>.</p>
+          <p>Earlier work at collecting this information (and the kernel of the information included here) is located at <a href="https://philipdick.com/resources/miscellaneous/pkdicktionary" target="_blank" rel="noopener">PKDicktionary</a> in the <a href="https://philipdick.com" target="_blank" rel="noopener">Philip K. Dick site</a>.</p>
 
           <p>Future improvements are the ability to suggest terms for inclusion into the Dicktionary and the ability to view information about the works that the terms appear in.</p>
 
@@ -46,7 +47,7 @@ const Home = (props) => {
         </Col>
         <Col xs="2">
 
-          <img src={setLocalImagePath("https://philipdick.com/images/PKD/Philip_Dick2.jpg")} alt="Philip K. Dick" />
+          <img src={setLocalImagePath("https://philipdick.com/images/PKD/Philip_Dick2.jpg", profileType)} alt="Philip K. Dick" />
 
         </Col>
       </Row>

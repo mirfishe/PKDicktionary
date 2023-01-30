@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
-// import { HouseFill } from "react-bootstrap-icons";
-import { Container, Col, Row, Nav, Navbar, /* NavbarBrand, */ NavItem, NavLink, NavbarText, Alert, Button } from "reactstrap";
+import { Container, Col, Row, Nav, Navbar, NavItem, NavLink, NavbarText, Alert, Button } from "reactstrap";
 import applicationSettings from "./app/environment";
-import { isEmpty, getDateTime, isNonEmptyArray, hasNonEmptyProperty } from "shared-functions";
-import { addComputerLog, addErrorLog } from "./utilities/ApplicationFunctions";
-import { setApplicationVersion, setCopyrightYear, setLocationLogged, /* setApplicationOffline, */ setUserElectronicOnly, setUserPhysicalOnly } from "./app/applicationSettingsSlice";
+import { isEmpty, getDateTime, isNonEmptyArray, getQueryStringData, addErrorLog } from "shared-functions";
+import { addComputerLog } from "./utilities/ApplicationFunctions";
+import { setApplicationVersion, setCopyrightYear, setLocationLogged, setProfileType, setBaseURL, setApplicationOffline, setUserElectronicOnly, setUserPhysicalOnly } from "./app/applicationSettingsSlice";
 import { setPageURL, setLinkItem } from "./app/urlsSlice";
 import LoadApplicationSettings from "./components/loadData/LoadApplicationSettings";
 import LoadTermData from "./components/loadData/LoadTermData";
@@ -32,14 +31,15 @@ const App = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // ! Loading the baseURL from the state store here is too slow. -- 03/06/2021 MF
-  // ! Always pulling it from environment.js. -- 03/06/2021 MF
-  // const baseURL = useSelector(state => state.applicationSettings.baseURL);
-  const baseURL = applicationSettings.baseURL;
+  const routerBaseName = applicationSettings.routerBaseName;
+  const defaultPageComponent = applicationSettings.defaultPageComponent;
+
+  const baseURL = useSelector(state => state.applicationSettings.baseURL);
+  const profileType = useSelector(state => state.applicationSettings.profileType);
   const computerLog = useSelector(state => state.applicationSettings.computerLog);
   const locationLogged = useSelector(state => state.applicationSettings.locationLogged);
+  const applicationAllowUserInteractions = useSelector(state => state.applicationSettings.applicationAllowUserInteractions);
 
-  // const applicationAllowUserInteractions = useSelector(state => state.applicationSettings.applicationAllowUserInteractions);
   let showAllMenuItems = useSelector(state => state.applicationSettings.menuSettings.showAllMenuItems);
 
   let showAbout = useSelector(state => state.applicationSettings.menuSettings.showAbout);
@@ -51,30 +51,20 @@ const App = (props) => {
 
   };
 
-  let showTerms = useSelector(state => state.applicationSettings.menuSettings.showTerms);
+  // let showTerms = useSelector(state => state.applicationSettings.menuSettings.showTerms);
 
-  // * show Terms page unless set specifically to false. -- 03/06/2021 MF
-  if (showTerms !== false) {
+  // // * show Terms page unless set specifically to false. -- 03/06/2021 MF
+  // if (showTerms !== false) {
 
-    showTerms = true;
+  //   showTerms = true;
 
-  };
+  // };
 
   const arrayURLs = useSelector(state => state.urls.arrayURLs);
   const pageURL = useSelector(state => state.urls.pageURL);
   const linkItem = useSelector(state => state.urls.linkItem);
 
   const arrayTerms = useSelector(state => state.terms.arrayTerms);
-
-  // ! Loading the routerBaseName from the state store here is too slow. -- 03/06/2021 MF
-  // ! Always pulling it from environment.js. -- 03/06/2021 MF
-  // const routerBaseName = useSelector(state => state.applicationSettings.routerBaseName);
-  const routerBaseName = applicationSettings.routerBaseName;
-
-  // ! Loading the defaultPageComponent from the state store here is too slow. -- 03/06/2021 MF
-  // ! Always pulling it from environment.js. -- 03/06/2021 MF
-  // const defaultPageComponent = useSelector(state => state.applicationSettings.defaultPageComponent);
-  const defaultPageComponent = applicationSettings.defaultPageComponent;
 
   let applicationVersion = isEmpty(props) === false && isEmpty(props.applicationVersion) === false ? props.applicationVersion : "0.0.0";
   let copyrightYear = isEmpty(props) === false && isEmpty(props.copyrightYear) === false ? props.copyrightYear : 2022;
@@ -117,6 +107,27 @@ const App = (props) => {
 
   useEffect(() => {
 
+    // * In production, unless you set the REACT_APP_FORCE_LOCAL_API = "True" environment variable, the application will use the production API. -- 07/28/2021 MF
+    // * The REACT_APP_FORCE_LOCAL_API = "True" environment variable, is used to force the application when in production to use the local API. -- 07/28/2021 MF
+
+    let appBaseURL = "https://api.philipdick.com/";
+
+    // if (process.env.NODE_ENV === "development" && (process.env.REACT_APP_FORCE_LOCAL_API === "True" || process.env.REACT_APP_FORCE_PRODUCTION_API !== "True")) {
+    if (process.env.NODE_ENV === "development" && process.env.REACT_APP_FORCE_LOCAL_API === "True") {
+
+      appBaseURL = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/`;
+
+    };
+
+    dispatch(setBaseURL(appBaseURL));
+
+    let queryStringData = getQueryStringData();
+
+    // * Retreive the queryString values if there are any. -- 05/10/2022 MF
+    let profileTypeQueryString = isEmpty(queryStringData) === false && isEmpty(queryStringData.profileType) === false ? queryStringData.profileType : null;
+
+    dispatch(setProfileType(profileTypeQueryString));
+
     let documentURL = new URL(document.URL);
 
     dispatch(setPageURL(documentURL.pathname.replaceAll(routerBaseName, "").replaceAll("/", "")));
@@ -135,9 +146,9 @@ const App = (props) => {
       let url1 = "https://geolocation-db.com/json/";
 
       fetch(url1)
-        .then(response => {
+        .then(results => {
 
-          return response.json();
+          return results.json();
 
         }).then((results) => {
 
@@ -163,9 +174,9 @@ const App = (props) => {
       let url2 = "https://api.db-ip.com/v2/free/self";
 
       fetch(url2)
-        .then(response => {
+        .then(results => {
 
-          return response.json();
+          return results.json();
 
         }).then((results) => {
 
@@ -224,7 +235,7 @@ const App = (props) => {
 
     };
 
-  }, [computerLog, /*latitude, longitude, postalCode*/ url1Loaded, url2Loaded]);
+  }, [computerLog, url1Loaded, url2Loaded]);
 
 
   useEffect(() => {
@@ -265,7 +276,7 @@ const App = (props) => {
 
     let href = isEmpty(window.location.href) === false ? window.location.href : "";
 
-    let url = baseURL + "computerLogs/";
+    let url = `${baseURL}computerLogs/`;
     let response = "";
     let data = "";
     let operationValue = "Update Computer Log";
@@ -306,21 +317,21 @@ const App = (props) => {
       }),
       body: JSON.stringify({ recordObject: recordObject })
     })
-      .then(response => {
+      .then(results => {
 
-        if (response.ok !== true) {
+        if (results.ok !== true) {
 
-          // throw Error(response.status + " " + response.statusText + " " + response.url);
+          // throw Error(results.status + " " + results.statusText + " " + results.url);
 
         } else {
 
-          if (response.status === 200) {
+          if (results.status === 200) {
 
-            return response.json();
+            return results.json();
 
           } else {
 
-            return response.status;
+            return results.status;
 
           };
 
@@ -340,7 +351,7 @@ const App = (props) => {
 
         // addErrorMessage(`${operationValue}: ${error.name}: ${error.message}`);
 
-        // addErrorLog(baseURL, operationValue, componentName, { url: url, response: { ok: response.ok, redirected: response.redirected, status: response.status, statusText: response.statusText, type: response.type, url: response.url }, recordObject, errorData: { name: error.name, message: error.message, stack: error.stack } });
+        // addErrorLog(baseURL, getFetchAuthorization(), databaseAvailable, allowLogging(), { url: url, response: { ok: response.ok, redirected: response.redirected, status: response.status, statusText: response.statusText, type: response.type, url: response.url }, recordObject, errorData: { name: error.name, message: error.message, stack: error.stack } });
 
       });
 
@@ -364,10 +375,6 @@ const App = (props) => {
       <Navbar color="light" light>
         <Nav>
 
-          {/* <NavbarBrand href="/">
-            <HouseFill color="black" />
-          </NavbarBrand> */}
-
           <NavItem>
             <NavLink tag={Link} to="/"><NavbarText>Home</NavbarText></NavLink>
           </NavItem>
@@ -389,11 +396,11 @@ const App = (props) => {
             : null}
 
           <NavItem className="mx-3 my-2">
-            <a href="https://sfdictionary.com" target="_blank" rel="noopener noreferrer"><NavbarText>Historical Dictionary of Science Fiction</NavbarText></a>
+            <a href="https://sfdictionary.com" target="_blank" rel="noopener"><NavbarText>Historical Dictionary of Science Fiction</NavbarText></a>
           </NavItem>
 
           <NavItem className="mx-3 my-2">
-            <a href="http://www.technovelgy.com/ct/AuthorTotalAlphaList.asp?AuNum=13" target="_blank" rel="noopener noreferrer"><NavbarText>Philip K. Dick:
+            <a href="http://www.technovelgy.com/ct/AuthorTotalAlphaList.asp?AuNum=13" target="_blank" rel="noopener"><NavbarText>Philip K. Dick:
               Science Fiction Technology and Ideas</NavbarText></a>
           </NavItem>
 
@@ -409,12 +416,10 @@ const App = (props) => {
       </Navbar>
 
       <Container className="body-container mb-5">
+
+        <p>Add a list of categories in the pill layout.</p>
+
         <Row>
-          <Col xs="2">
-
-            {isEmpty(arrayTerms) === false ? <Terms redirectPage={redirectPage} /> : null}
-
-          </Col>
           <Col xs="10">
 
             <Row className="text-center">
@@ -461,6 +466,11 @@ const App = (props) => {
               {isEmpty(linkItem) === false && isEmpty(linkItem.linkName) === false && linkItem.linkType === "terms" ? <Route path="/:linkName" element={<Term redirectPage={redirectPage} linkItem={linkItem} />} /> : null}
 
             </Routes>
+
+          </Col>
+          <Col xs="2">
+
+            {isEmpty(arrayTerms) === false ? <Terms redirectPage={redirectPage} /> : null}
 
           </Col>
         </Row>
