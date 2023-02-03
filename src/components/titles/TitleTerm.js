@@ -122,7 +122,7 @@ const TitleTerm = (props) => {
                     <Col className="col-md-8">
                       <CardBody>
 
-                        {/* <CardText><Link to={title.replaceAll("-", "|").replaceAll(" ", "-")}>{title.category}</Link></CardText> */}
+                        { /* <CardText><Link to={title.replaceAll("-", "|").replaceAll(" ", "-")}>{title.category}</Link></CardText> */}
 
                         <CardText><a href={"https://philipdick.com/pkd-and-me/" + linkName.replaceAll("/", "")} target="_blank" rel="noopener">{title.titleName}</a>
 

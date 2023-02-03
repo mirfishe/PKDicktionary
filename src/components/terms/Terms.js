@@ -49,11 +49,11 @@ const Terms = (props) => {
               return (
                 <React.Fragment key={index}>
 
-                  {/* {index !== 0 ?
+                  { /* {index !== 0 ?
 
                     <React.Fragment>,&nbsp;</React.Fragment>
 
-                    : null} */}
+                    : null} */ }
 
                   <a href="#" onClick={(event) => { event.preventDefault(); redirectPage(encodeURL(term.term)); /* getTerm(term.termID); */ }}>{term.term}</a><br />
 
