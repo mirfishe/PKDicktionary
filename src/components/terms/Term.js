@@ -284,7 +284,7 @@ const Term = (props) => {
 
                         <TitleTerm linkName={termTitle.titleURL} showShortDescription={true} termTitle={termTitle} imageSide="right" />
 
-                        { /* <Col key={termTitle.titleID} xs="6" className="mb-4">
+                        {/* <Col key={termTitle.titleID} xs="6" className="mb-4">
 
                           <Link to={termTitle.titleURL} onClick={(event) => { event.preventDefault(); redirectPage(termTitle.titleURL); }}>{termTitle.titleName}</Link>
 

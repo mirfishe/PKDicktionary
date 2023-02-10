@@ -49,7 +49,7 @@ const Terms = (props) => {
               return (
                 <React.Fragment key={index}>
 
-                  { /* {index !== 0 ?
+                  {/* {index !== 0 ?
 
                     <React.Fragment>,&nbsp;</React.Fragment>
 

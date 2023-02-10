@@ -379,7 +379,7 @@ const App = (props) => {
             <NavLink tag={Link} to="/"><NavbarText>Home</NavbarText></NavLink>
           </NavItem>
 
-          { /* {showTerms === true || showAllMenuItems === true ?
+          {/* {showTerms === true || showAllMenuItems === true ?
 
             <NavItem>
               <NavLink tag={Link} to="/terms"><NavbarText>Terms</NavbarText></NavLink>
@@ -404,7 +404,7 @@ const App = (props) => {
               Science Fiction Technology and Ideas</NavbarText></a>
           </NavItem>
 
-          { /* {applicationAllowUserInteractions === true && isEmpty(sessionToken) === false ?
+          {/* {applicationAllowUserInteractions === true && isEmpty(sessionToken) === false ?
 
             <NavItem>
               <AddTermSuggestion displayButton={true} />
@@ -424,7 +424,7 @@ const App = (props) => {
 
             <Row className="text-center">
 
-              { /* {isEmpty(linkItem) === false && isEmpty(linkItem.linkName)===false ? <Alert color="info">{JSON.stringify(linkItem, null, 1)}</Alert> : null} */}
+              {/* {isEmpty(linkItem) === false && isEmpty(linkItem.linkName)===false ? <Alert color="info">{JSON.stringify(linkItem, null, 1)}</Alert> : null} */}
 
               <Alert color="info" isOpen={messageVisible} toggle={onDismissMessage}>{message}</Alert>
               <Alert color="danger" isOpen={errorMessageVisible} toggle={onDismissErrorMessage}>{errorMessage}</Alert>
@@ -437,15 +437,15 @@ const App = (props) => {
 
             <Routes>
 
-              { /* // * Set the default page from the defaultPageComponent from environment. -- 03/06/2021 MF */}
+              {/* // * Set the default page from the defaultPageComponent from environment. -- 03/06/2021 MF */}
               {defaultPageComponent === "Home" ? <Route path="/" element={<Home redirectPage={redirectPage} />} /> : null}
               {defaultPageComponent === "About" ? <Route path="/" element={<About redirectPage={redirectPage} />} /> : null}
 
               <Route path="/home" element={<Home redirectPage={redirectPage} />} />
               <Route path="/about" element={<About redirectPage={redirectPage} />} />
 
-              { /* // ! Can't add this security to the routes because it interferes with the routes below these. -- 12/19/2021 MF */}
-              { /* {isEmpty(admin) === false && admin === true ?
+              {/* // ! Can't add this security to the routes because it interferes with the routes below these. -- 12/19/2021 MF */}
+              {/* {isEmpty(admin) === false && admin === true ?
 
                 <React.Fragment> */ }
 
@@ -455,14 +455,14 @@ const App = (props) => {
 
               <Route path="/errors" element={<Errors />} />
 
-              { /* </React.Fragment>
+              {/* </React.Fragment>
 
                 : null} */ }
 
-              { /* // * This route no longer works. Fixed. -- 03/06/2021 MF */}
+              {/* // * This route no longer works. Fixed. -- 03/06/2021 MF */}
               <Route path="/terms" element={<Terms redirectPage={redirectPage} />} />
 
-              { /* // ! These need to stay at the bottom of the list so that the links above will work properly. -- 03/06/2021 MF */}
+              {/* // ! These need to stay at the bottom of the list so that the links above will work properly. -- 03/06/2021 MF */}
               {isEmpty(linkItem) === false && isEmpty(linkItem.linkName) === false && linkItem.linkType === "terms" ? <Route path="/:linkName" element={<Term redirectPage={redirectPage} linkItem={linkItem} />} /> : null}
 
             </Routes>
