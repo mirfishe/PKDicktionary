@@ -26,10 +26,18 @@ const TitleTerm = (props) => {
   let linkName = isEmpty(props) === false && isEmpty(props.linkName) === false ? props.linkName : "";
   let showShortDescription = isEmpty(props) === false && isEmpty(props.showShortDescription) === false ? props.showShortDescription : "";
 
+  const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [messageVisible, setMessageVisible] = useState(false);
+  const [errorMessageVisible, setErrorMessageVisible] = useState(false);
+  const clearMessages = () => { setMessage(""); setErrorMessage(""); setMessageVisible(false); setErrorMessageVisible(false); };
+  const addMessage = (message) => { setMessage(message); setMessageVisible(true); };
+  const addErrorMessage = (message) => { setErrorMessage(message); setErrorMessageVisible(true); };
+  const onDismissMessage = () => setMessageVisible(false);
+  const onDismissErrorMessage = () => setErrorMessageVisible(false);
+
   const [titleParam, setTitleParam] = useState(null);
   const [titleList, setTitleList] = useState([]);
-
-  const [errTitleMessage, setErrTitleMessage] = useState("");
 
 
   useEffect(() => {
@@ -74,11 +82,11 @@ const TitleTerm = (props) => {
 
     if (isEmpty(titleList) === false) {
 
-      setErrTitleMessage("");
+      clearMessages();
 
     } else {
 
-      // setErrTitleMessage("Title not found.");
+      // addErrorMessage("Title not found.");
 
     };
 
@@ -87,81 +95,87 @@ const TitleTerm = (props) => {
 
   return (
     <Container className="mt-4">
-      <Row className="justify-content-center">
-        <Col className="text-center" xs="12">
 
-          {isEmpty(errTitleMessage) === false ? <Alert color="danger">{errTitleMessage}</Alert> : null}
-          {isEmpty(headerText) === false ? <h4 className="text-center">{headerText}</h4> : null}
-
-        </Col>
-      </Row>
+      <Alert color="danger" isOpen={errorMessageVisible} toggle={onDismissErrorMessage}>{errorMessage}</Alert>
 
       {isNonEmptyArray(titleList) === true ?
 
-        <Row className="justify-content-center">
+        <React.Fragment>
 
-          {titleList.map((title) => {
+          <Row className="justify-content-center">
+            <Col className="text-center" xs="12">
 
-            return (
-              <Col key={title.titleID} xs="8" className="mb-4">
-                <Card>
-                  <Row className="no-gutters">
+              {isEmpty(headerText) === false ? <h4 className="text-center">{headerText}</h4> : null}
 
-                    {imageSide === "left" ?
+            </Col>
+          </Row>
 
-                      <Col className="col-md-4">
+          <Row className="justify-content-center">
 
-                        <a href={"https://philipdick.com/pkd-and-me/" + linkName.replaceAll("/", "")} target="_blank" rel="noopener">
-                          {isEmpty(title.imageName) === false ? <CardImg onError={() => { console.error("Title image not loaded!"); fetch(baseURL + "titles/broken/" + title.titleID, { method: "GET", headers: new Headers({ "Content-Type": "application/json" }) }); }} src={setLocalImagePath(title.imageName, profileType)} alt={title.titleName} /> : <Image className="no-image-icon" />}
-                        </a>
+            {titleList.map((title) => {
 
+              return (
+                <Col key={title.titleID} xs="8" className="mb-4">
+                  <Card>
+                    <Row className="no-gutters">
+
+                      {imageSide === "left" ?
+
+                        <Col className="col-md-4">
+
+                          <a href={"https://philipdick.com/pkd-and-me/" + linkName.replaceAll("/", "")} target="_blank" rel="noopener">
+                            {isEmpty(title.imageName) === false ? <CardImg onError={() => { console.error("Title image not loaded!"); fetch(baseURL + "titles/broken/" + title.titleID, { method: "GET", headers: new Headers({ "Content-Type": "application/json" }) }); }} src={setLocalImagePath(title.imageName, profileType)} alt={title.titleName} /> : <Image className="no-image-icon" />}
+                          </a>
+
+                        </Col>
+
+                        : null}
+
+                      <Col className="col-md-8">
+                        <CardBody>
+
+                          {/* <CardText><Link to={title.replaceAll("-", "|").replaceAll(" ", "-")}>{title.category}</Link></CardText> */}
+
+                          <CardText><a href={"https://philipdick.com/pkd-and-me/" + linkName.replaceAll("/", "")} target="_blank" rel="noopener">{title.titleName}</a>
+
+                            {isEmpty(title.publicationDate) === false ? <span className="ms-1 smaller-text">({displayYear(title.publicationDate)})</span> : null}</CardText>
+
+                          <CardText className="smaller-text">{title.authorFirstName} {title.authorLastName}</CardText>
+
+                          {showShortDescription === true && isEmpty(title.shortDescription) === false ? <p className="my-4 display-paragraphs">{truncateText(title.shortDescription, 250)}</p> : null}
+
+                          {isEmpty(termTitle.quotation) === false ? <p className="my-4 display-paragraphs">{truncateText(termTitle.quotation, 250)}</p> : null}
+
+                        </CardBody>
                       </Col>
 
-                      : null}
+                      {imageSide === "right" ?
 
-                    <Col className="col-md-8">
-                      <CardBody>
+                        <Col className="col-md-4">
 
-                        {/* <CardText><Link to={title.replaceAll("-", "|").replaceAll(" ", "-")}>{title.category}</Link></CardText> */}
+                          <a href={"https://philipdick.com/pkd-and-me/" + linkName.replaceAll("/", "")} target="_blank" rel="noopener">
+                            {isEmpty(title.imageName) === false ? <CardImg onError={() => { console.error("Title image not loaded!"); fetch(baseURL + "titles/broken/" + title.titleID, { method: "GET", headers: new Headers({ "Content-Type": "application/json" }) }); }} src={setLocalImagePath(title.imageName, profileType)} alt={title.titleName} /> : <Image className="no-image-icon" />}
+                          </a>
 
-                        <CardText><a href={"https://philipdick.com/pkd-and-me/" + linkName.replaceAll("/", "")} target="_blank" rel="noopener">{title.titleName}</a>
+                        </Col>
 
-                          {isEmpty(title.publicationDate) === false ? <span className="ms-1 smaller-text">({displayYear(title.publicationDate)})</span> : null}</CardText>
+                        : null}
 
-                        <CardText className="smaller-text">{title.authorFirstName} {title.authorLastName}</CardText>
+                    </Row>
+                    <CardFooter className="card-footer">
 
-                        {showShortDescription === true && isEmpty(title.shortDescription) === false ? <p className="my-4 display-paragraphs">{truncateText(title.shortDescription, 250)}</p> : null}
+                      <CardText><a href={"https://philipdick.com/pkd-and-me/" + encodeURL(titleList[0].category)} target="_blank" rel="noopener">{titleList[0].category}</a></CardText>
 
-                        {isEmpty(termTitle.quotation) === false ? <p className="my-4 display-paragraphs">{truncateText(termTitle.quotation, 250)}</p> : null}
+                    </CardFooter>
+                  </Card>
 
-                      </CardBody>
-                    </Col>
+                </Col>
+              );
+            })}
 
-                    {imageSide === "right" ?
+          </Row>
 
-                      <Col className="col-md-4">
-
-                        <a href={"https://philipdick.com/pkd-and-me/" + linkName.replaceAll("/", "")} target="_blank" rel="noopener">
-                          {isEmpty(title.imageName) === false ? <CardImg onError={() => { console.error("Title image not loaded!"); fetch(baseURL + "titles/broken/" + title.titleID, { method: "GET", headers: new Headers({ "Content-Type": "application/json" }) }); }} src={setLocalImagePath(title.imageName, profileType)} alt={title.titleName} /> : <Image className="no-image-icon" />}
-                        </a>
-
-                      </Col>
-
-                      : null}
-
-                  </Row>
-                  <CardFooter className="card-footer">
-
-                    <CardText><a href={"https://philipdick.com/pkd-and-me/" + encodeURL(titleList[0].category)} target="_blank" rel="noopener">{titleList[0].category}</a></CardText>
-
-                  </CardFooter>
-                </Card>
-
-              </Col>
-            );
-          })}
-
-        </Row>
+        </React.Fragment>
 
         : null}
 

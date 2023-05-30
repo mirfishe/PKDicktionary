@@ -32,9 +32,13 @@ const TermSuggestions = () => {
 
   useEffect(() => {
 
-    getTermSuggestions();
+    if (isEmpty(baseURL) === false) {
 
-  }, []);
+      getTermSuggestions();
+
+    };
+
+  }, [baseURL]);
 
 
   useEffect(() => {

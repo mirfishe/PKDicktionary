@@ -30,9 +30,13 @@ const Errors = () => {
 
   useEffect(() => {
 
-    getErrors();
+    if (isEmpty(baseURL) === false) {
 
-  }, []);
+      getErrors();
+
+    };
+
+  }, [baseURL]);
 
 
   useEffect(() => {
