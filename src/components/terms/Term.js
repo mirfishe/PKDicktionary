@@ -24,6 +24,7 @@ const Term = (props) => {
   const arrayTerms = useSelector(state => state.terms.arrayTerms);
 
   let linkItem = isEmpty(props) === false && isEmpty(props.linkItem) === false ? props.linkItem : null;
+
   let redirectPage = isEmpty(props) === false && isEmpty(props.redirectPage) === false ? props.redirectPage : noFunctionAvailable;
 
   const [message, setMessage] = useState("");
@@ -296,7 +297,7 @@ const Term = (props) => {
 
                           </Link>
 
-                        </Col> */}
+                        </Col> */ }
 
                       </React.Fragment>
 

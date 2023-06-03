@@ -123,7 +123,7 @@ const App = (props) => {
 
     let queryStringData = getQueryStringData();
 
-    // * Retreive the queryString values if there are any. -- 05/10/2022 MF
+    // * Retrieve the queryString values if there are any. -- 05/10/2022 MF
     let profileTypeQueryString = isEmpty(queryStringData) === false && isEmpty(queryStringData.profileType) === false ? queryStringData.profileType : null;
 
     dispatch(setProfileType(profileTypeQueryString));
@@ -385,7 +385,7 @@ const App = (props) => {
               <NavLink tag={Link} to="/terms"><NavbarText>Terms</NavbarText></NavLink>
             </NavItem>
 
-            : null} */}
+            : null} */ }
 
           {showAbout === true || showAllMenuItems === true ?
 
@@ -410,7 +410,7 @@ const App = (props) => {
               <AddTermSuggestion displayButton={true} />
             </NavItem>
 
-            : null} */}
+            : null} */ }
 
         </Nav>
       </Navbar>
@@ -447,7 +447,7 @@ const App = (props) => {
               {/* // ! Can't add this security to the routes because it interferes with the routes below these. -- 12/19/2021 MF */}
               {/* {isEmpty(admin) === false && admin === true ?
 
-                <React.Fragment> */}
+                <React.Fragment> */ }
 
               <Route path="/computerLogs" element={<ComputerLogs />} />
 
@@ -457,7 +457,7 @@ const App = (props) => {
 
               {/* </React.Fragment>
 
-                : null} */}
+                : null} */ }
 
               {/* // * This route no longer works. Fixed. -- 03/06/2021 MF */}
               <Route path="/terms" element={<Terms redirectPage={redirectPage} />} />
