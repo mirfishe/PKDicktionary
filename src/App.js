@@ -67,7 +67,7 @@ const App = (props) => {
   const arrayTerms = useSelector(state => state.terms.arrayTerms);
 
   let applicationVersion = isEmpty(props) === false && isEmpty(props.applicationVersion) === false ? props.applicationVersion : "0.0.0";
-  let copyrightYear = isEmpty(props) === false && isEmpty(props.copyrightYear) === false ? props.copyrightYear : 2022;
+  let copyrightYear = isEmpty(props) === false && isEmpty(props.copyrightYear) === false ? props.copyrightYear : 2023;
 
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
