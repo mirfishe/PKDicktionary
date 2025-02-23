@@ -4,7 +4,7 @@ import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { Container, Col, Row, Nav, Navbar, NavItem, NavLink, NavbarText, Alert, Button } from "reactstrap";
 import applicationSettings from "./app/environment";
 import { isEmpty, getDateTime, isNonEmptyArray, getQueryStringData, addErrorLog, addComputerLog } from "shared-functions";
-import { setApplicationVersion, setCopyrightYear, setLocationLogged, setProfileType, setBaseURL, setApplicationOffline, setUserElectronicOnly, setUserPhysicalOnly } from "./app/applicationSettingsSlice";
+import { setApplicationVersion, setCopyrightYear, setLocationLogged, setProfileType, setBaseURL, setApplicationOffline } from "./app/applicationSettingsSlice";
 import { setPageURL, setLinkItem } from "./app/urlsSlice";
 import LoadApplicationSettings from "./components/loadData/LoadApplicationSettings";
 import LoadTermData from "./components/loadData/LoadTermData";
@@ -18,7 +18,6 @@ import Term from "./components/terms/Term";
 import ComputerLogs from "./components/reports/ComputerLogs";
 import Logs from "./components/reports/Logs";
 import Errors from "./components/reports/Errors";
-import "./App.css";
 
 const App = (props) => {
 
@@ -66,7 +65,7 @@ const App = (props) => {
   const arrayTerms = useSelector(state => state.terms.arrayTerms);
 
   let applicationVersion = isEmpty(props) === false && isEmpty(props.applicationVersion) === false ? props.applicationVersion : "0.0.0";
-  let copyrightYear = isEmpty(props) === false && isEmpty(props.copyrightYear) === false ? props.copyrightYear : 2023;
+  let copyrightYear = isEmpty(props) === false && isEmpty(props.copyrightYear) === false ? props.copyrightYear : 2024;
 
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -111,10 +110,10 @@ const App = (props) => {
 
     let appBaseURL = "https://api.philipdick.com/";
 
-    // if (process.env.NODE_ENV === "development" && (process.env.REACT_APP_FORCE_LOCAL_API === "True" || process.env.REACT_APP_FORCE_PRODUCTION_API !== "True")) {
-    if (process.env.NODE_ENV === "development" && process.env.REACT_APP_FORCE_LOCAL_API === "True") {
+    // if (import.meta.env.MODE === "development" && (import.meta.env.REACT_APP_FORCE_LOCAL_API === "True" || import.meta.env.REACT_APP_FORCE_PRODUCTION_API !== "True")) {
+    if (import.meta.env.MODE === "development" && import.meta.env.REACT_APP_FORCE_LOCAL_API === "True") {
 
-      appBaseURL = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/`;
+      appBaseURL = `http://localhost:${import.meta.env.REACT_APP_SERVER_PORT}/`;
 
     };
 
