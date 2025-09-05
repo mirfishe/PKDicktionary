@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Alert } from "reactstrap";
 import { isEmpty, getDateTime, isNonEmptyArray, hasNonEmptyProperty, getFirstItem, addErrorLog } from "shared-functions";
-// import { encodeURL } from "../../utilities/ApplicationFunctions";
+// import { encodeURL } from "../../utilities/applicationFunctions";
 import { loadArrayURLs } from "../../app/urlsSlice";
 import { loadArrayTitles, /* setTitlesDataOffline */ } from "../../app/titlesSlice";
 
@@ -170,7 +170,7 @@ function LoadBibliographyData() {
         // dispatch(setUserReviewsRatingsDataOffline(true));
         // fetchLocalDataUserReviewsRatings(titleData);
 
-        // addErrorLog(baseURL, getFetchAuthorization(), databaseAvailable, allowLogging(), {  url: url, response: { ok: response.ok, redirected: response.redirected, status: response.status, statusText: response.statusText, type: response.type, url: response.url }, recordObject, errorData: { name: error.name, message: error.message, stack: error.stack } });
+        // addErrorLog(baseURL, setFetchAuthorization(null, environmentMode, demonstrationMode), databaseAvailable, allowLogging(), {  url: url, response: { ok: response.ok, redirected: response.redirected, status: response.status, statusText: response.statusText, type: response.type, url: response.url }, recordObject, errorData: { name: error.name, message: error.message, stack: error.stack } });
 
       });
 
@@ -269,7 +269,7 @@ function LoadBibliographyData() {
         // dispatch(setTitlesDataOffline(true));
         fetchLocalDataTitles();
 
-        // addErrorLog(baseURL, getFetchAuthorization(), databaseAvailable, allowLogging(), {  url: url, response: { ok: response.ok, redirected: response.redirected, status: response.status, statusText: response.statusText, type: response.type, url: response.url }, recordObject, errorData: { name: error.name, message: error.message, stack: error.stack } });
+        // addErrorLog(baseURL, setFetchAuthorization(null, environmentMode, demonstrationMode), databaseAvailable, allowLogging(), {  url: url, response: { ok: response.ok, redirected: response.redirected, status: response.status, statusText: response.statusText, type: response.type, url: response.url }, recordObject, errorData: { name: error.name, message: error.message, stack: error.stack } });
 
       });
 
@@ -327,7 +327,7 @@ function LoadBibliographyData() {
         // dispatch(setTitlesDataOffline(true));
         // loadDataStore(TitleData, "titles");
 
-        // addErrorLog(baseURL, getFetchAuthorization(), databaseAvailable, allowLogging(), {  url: url, response: { ok: response.ok, redirected: response.redirected, status: response.status, statusText: response.statusText, type: response.type, url: response.url }, recordObject, errorData: { name: error.name, message: error.message, stack: error.stack } });
+        // addErrorLog(baseURL, setFetchAuthorization(null, environmentMode, demonstrationMode), databaseAvailable, allowLogging(), {  url: url, response: { ok: response.ok, redirected: response.redirected, status: response.status, statusText: response.statusText, type: response.type, url: response.url }, recordObject, errorData: { name: error.name, message: error.message, stack: error.stack } });
 
       });
 

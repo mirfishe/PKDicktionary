@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { Container, Col, Row, Alert } from "reactstrap";
 // import { Image } from "react-bootstrap-icons";
 import { noFunctionAvailable, isEmpty, getDateTime, isNonEmptyArray, addErrorLog } from "shared-functions";
-// import { encodeURL, decodeURL, setLocalPath, setLocalImagePath } from "../../utilities/ApplicationFunctions";
+// import { encodeURL, decodeURL, setLocalPath, setLocalImagePath } from "../../utilities/applicationFunctions";
 import TitleTerm from "../titles/TitleTerm";
 
 const Term = (props) => {
@@ -104,7 +104,7 @@ const Term = (props) => {
 
         addErrorMessage(error.name + ": " + error.message);
 
-        // addErrorLog(baseURL, getFetchAuthorization(), databaseAvailable, allowLogging(), {  url: url, response: { ok: response.ok, redirected: response.redirected, status: response.status, statusText: response.statusText, type: response.type, url: response.url }, recordObject, errorData: { name: error.name, message: error.message, stack: error.stack } });
+        // addErrorLog(baseURL, setFetchAuthorization(null, environmentMode, demonstrationMode), databaseAvailable, allowLogging(), {  url: url, response: { ok: response.ok, redirected: response.redirected, status: response.status, statusText: response.statusText, type: response.type, url: response.url }, recordObject, errorData: { name: error.name, message: error.message, stack: error.stack } });
 
       });
 

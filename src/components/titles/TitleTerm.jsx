@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Container, Col, Row, Card, CardBody, CardText, CardHeader, CardFooter, CardImg, Alert } from "reactstrap";
 import { Image } from "react-bootstrap-icons";
 import { isEmpty, getDateTime, isNonEmptyArray, displayYear, truncateText } from "shared-functions";
-import { encodeURL, setLocalImagePath } from "../../utilities/ApplicationFunctions";
+import { encodeURL, setLocalImagePath } from "../../utilities/applicationFunctions";
 
 const TitleTerm = (props) => {
 

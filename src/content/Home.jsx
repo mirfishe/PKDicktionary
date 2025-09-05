@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Container, Col, Row } from "reactstrap";
 import { noFunctionAvailable, isEmpty, getDateTime } from "shared-functions";
-import { setLocalPath, setLocalImagePath } from "../utilities/ApplicationFunctions";
+import { setLocalPath, setLocalImagePath } from "../utilities/applicationFunctions";
 
 const Home = (props) => {
 
